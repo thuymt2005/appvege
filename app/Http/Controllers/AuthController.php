@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Account;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
@@ -22,8 +24,7 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            // Đăng nhập thành công
-            $account = Auth::user(); // Lấy đối tượng Account
+            $account = Auth::user();
 
             if ($account->isAdmin()) {
                 return redirect()->route('admin.index');
@@ -33,14 +34,12 @@ class AuthController extends Controller
                 return redirect()->route('user.index');
             }
 
-            // Nếu role không rõ ràng, logout và báo lỗi
             Auth::logout();
             return back()->withErrors([
                 'email' => 'Tài khoản không có quyền truy cập.',
             ]);
         }
 
-        // Sai thông tin đăng nhập
         return back()->withErrors([
             'email' => 'Sai tài khoản hoặc mật khẩu.',
         ])->withInput();
@@ -54,7 +53,22 @@ class AuthController extends Controller
     // Xu ly dang ky
     public function registerPost(Request $request)
     {
-        return redirect()->route('login')->with('success', 'Đăng ký thành công!');
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:accounts,email',
+            'password' => 'required|confirmed|min:6',
+        ]);
+
+        $account = Account::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'user', // mặc định người đăng ký là user
+        ]);
+
+        Auth::login($account); // tự động đăng nhập sau khi đăng ký
+
+        return redirect()->route('user.index'); // chuyển về trang user
     }
 
     // Hien thi trang quen mat khau
@@ -62,16 +76,10 @@ class AuthController extends Controller
     {
         return view('auth.forgot-password');
     }
+
     // Xu ly quen mat khau
     public function forgotPasswordPost(Request $request)
     {
-        // $request->validate([
-        //     'email' => 'required|email',
-        // ]);
-
-        // // Logic xu ly quen mat khau
-        // // ...
-
         return redirect()->route('login')->with('status', 'Link reset password đã được gửi đến email của bạn.');
     }
     // Xu ly dang xuat
@@ -80,10 +88,5 @@ class AuthController extends Controller
         // Logic xu ly dang xuat
         Auth::logout();
         return redirect()->route('login');
-    }
-    // Trang chu
-    public function home()
-    {
-        return view('home');
     }
 }
