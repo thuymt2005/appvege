@@ -1,0 +1,39 @@
+resources/
+└── views/
+    ├── auth/                   ← Đăng ký, đăng nhập
+    │   ├── login.blade.php
+    │   ├── register.blade.php
+    │   └── forgot-password.blade.php
+    │
+    ├── layouts/                ← Layout chung (header, footer, master)
+    │   ├── app.blade.php
+    │   └── admin.blade.php
+    │
+    ├── user/                   ← Trang dành cho người dùng
+    │   ├── dashboard.blade.php
+    │   ├── profile.blade.php       ← Chỉnh sửa thông tin cá nhân
+    │   ├── search.blade.php        ← Tìm kiếm sản phẩm
+    │   ├── cart.blade.php          ← Giỏ hàng
+    │   ├── checkout.blade.php      ← Thanh toán / mua hàng
+    │   └── orders/                
+    │       ├── index.blade.php     ← Danh sách đơn hàng
+    │       └── show.blade.php      ← Chi tiết đơn hàng
+    │
+    ├── products/              ← Trang xem sản phẩm (người dùng)
+    │   └── show.blade.php         ← Chi tiết sản phẩm
+    │
+    ├── admin/                 ← Trang quản trị
+    │   ├── dashboard.blade.php
+    │   ├── users/                 ← Quản lý người dùng
+    │   │   ├── index.blade.php   ← Danh sách
+    │   │   └── edit.blade.php    ← Chỉnh sửa
+    │   ├── products/             ← Quản lý sản phẩm
+    │   │   ├── index.blade.php
+    │   │   ├── create.blade.php
+    │   │   └── edit.blade.php
+    │   └── categories/           ← Quản lý danh mục
+    │       ├── index.blade.php
+    │       ├── create.blade.php
+    │       └── edit.blade.php
+    │
+    └── welcome.blade.php      ← Trang landing hoặc home
