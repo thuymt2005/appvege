@@ -1,15 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
-<div class="container">
-    <h1>Admin Dashboard</h1>
-    {{-- <p>Xin chào quản trị viên: {{ Auth::user()->name }}</p> --}}
-
-    {{-- Ví dụ nội dung --}}
-    <ul>
-        <li>Quản lý người dùng</li>
-        <li>Quản lý sản phẩm</li>
-        <li>Thống kê đơn hàng</li>
-    </ul>
-</div>
+<h1>Welcome Admin</h1>
+<!-- Nút Logout -->
+<form action="{{ route('logout') }}" method="POST" style="display:inline;">
+    @csrf
+    <button type="submit">Logout</button>
+</form>
 @endsection
