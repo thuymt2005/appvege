@@ -31,7 +31,7 @@
                             if ($user->role === 'admin') {
                                 $redirectUrl = route('admin.index');
                             } elseif ($user->role === 'user') {
-                                $redirectUrl = route('user.index');
+                                $redirectUrl = route('user.dashboard');
                             }
                         @endphp
                         <a

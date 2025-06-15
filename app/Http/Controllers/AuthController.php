@@ -31,7 +31,7 @@ class AuthController extends Controller
             }
 
             if ($account->isUser()) {
-                return redirect()->route('user.index');
+                return redirect()->route('user.dashboard');
             }
 
             Auth::logout();
@@ -68,7 +68,7 @@ class AuthController extends Controller
 
         Auth::login($account); // tự động đăng nhập sau khi đăng ký
 
-        return redirect()->route('user.index'); // chuyển về trang user
+        return redirect()->route('user.dasboard'); // chuyển về trang user
     }
 
     // Hien thi trang quen mat khau

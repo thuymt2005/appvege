@@ -19,7 +19,7 @@ class AuthMiddleware
             }
 
             if ($user->isUser()) {
-                return redirect()->route('user.index');
+                return redirect()->route('user.dashboard');
             }
 
             Auth::logout(); // xoá session

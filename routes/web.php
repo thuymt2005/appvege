@@ -32,5 +32,6 @@ Route::middleware([LoginMiddleware::class, AdminMiddleware::class])->group(funct
 });
 
 Route::middleware([LoginMiddleware::class, UserMiddleware::class])->group(function () {
-    Route::resource('user', UserController::class);
+    Route::get('/user/dashboard', [UserController::class, 'dashboard'])->name('user.dashboard');
+    Route::get('/user/profile', [UserController::class, 'profile'])->name('user.profile');
 });
