@@ -17,11 +17,13 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+// app/Models/User.php
+
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'name', 'email', 'password',
+        'is_admin', 'phone', 'address',
     ];
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -45,4 +47,25 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function orders() {
+    return $this->hasMany(Order::class);
+}
+
+public function cartItems() {
+    return $this->hasMany(CartItem::class);
+}
+
+public function isAdmin()
+{
+    return $this->is_admin === 1;
+}
+
+public function isUser()
+{
+    return $this->is_admin === 0;
+}
+
+
+
 }

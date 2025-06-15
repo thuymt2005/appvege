@@ -58,23 +58,34 @@
 </head>
 <body>
 
-    <form method="POST" action="{{ route('login') }}" class="login-form">
-        @csrf
-        <h2 style="text-align:center">Đăng nhập</h2>
+<form method="POST" action="{{ route('login') }}" class="login-form">
+    @csrf
 
-        <label for="email">Email:</label>
-        <input type="email" name="email" required placeholder="Nhập email">
+    <h2 style="text-align:center">Đăng nhập</h2>
 
-        <label for="password">Mật khẩu:</label>
-        <input type="password" name="password" required placeholder="Nhập mật khẩu">
-
-        <button type="submit">Đăng nhập</button>
-
-        <div class="links">
-            <a href="{{ route('register') }}">Đăng ký tài khoản</a><br>
-            <a href="{{ route('forgot-password') }}">Quên mật khẩu?</a>
+    {{-- Hiển thị lỗi --}}
+    @if ($errors->any())
+        <div style="background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 4px; margin-bottom: 15px;">
+            @foreach ($errors->all() as $error)
+                <div>{{ $error }}</div>
+            @endforeach
         </div>
-    </form>
+    @endif
+
+    <label for="email">Email:</label>
+    <input type="email" name="email" required placeholder="Nhập email" value="{{ old('email') }}">
+
+    <label for="password">Mật khẩu:</label>
+    <input type="password" name="password" required placeholder="Nhập mật khẩu">
+
+    <button type="submit">Đăng nhập</button>
+
+    <div class="links">
+        <a href="{{ route('register') }}">Đăng ký tài khoản</a><br>
+        <a href="{{ route('forgot-password') }}">Quên mật khẩu?</a>
+    </div>
+</form>
+
 
 </body>
 </html>
