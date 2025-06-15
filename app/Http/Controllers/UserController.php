@@ -16,4 +16,8 @@ class UserController extends Controller
         // Hiển thị trang thông tin cá nhân của người dùng
         return view('user.profile');
     }
+    public function search()
+    {
+        return 123;
+    }
 }
