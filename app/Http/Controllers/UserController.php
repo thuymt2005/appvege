@@ -6,15 +6,15 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function dashboard()
+    public function home()
     {
         // Hiển thị trang dashboard của người dùng
-        return view('user.dashboard');
+        return view('home');
     }
     public function profile()
     {
         // Hiển thị trang thông tin cá nhân của người dùng
-        return view('user.profile');
+        return view('auth.profile');
     }
     public function search()
     {

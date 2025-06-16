@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Authcontroller;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
 
 use App\Http\Middleware\LoginMiddleware;
 use App\Http\Middleware\AdminMiddleware;
@@ -12,7 +14,8 @@ use App\Http\Middleware\AuthMiddleware;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
+
 
 Route::middleware([AuthMiddleware::class])->group(function () {
     Route::get('/login', [Authcontroller::class, 'login'])->name('login');
@@ -32,7 +35,9 @@ Route::middleware([LoginMiddleware::class, AdminMiddleware::class])->group(funct
 });
 
 Route::middleware([LoginMiddleware::class, UserMiddleware::class])->group(function () {
-    Route::get('/user/dashboard', [UserController::class, 'dashboard'])->name('user.dashboard');
-    Route::get('/user/profile', [UserController::class, 'profile'])->name('user.profile');
+    Route::get('/home', [UserController::class, 'home'])->name('home');
+    Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+    Route::get('/cart', [CartController::class, 'index'])->name('cart');
     Route::get('/user/search', [UserController::class, 'search'])->name('user.search');
 });

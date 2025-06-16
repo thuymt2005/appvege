@@ -1,0 +1,253 @@
+/* Global Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: #28a745;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: #218838;
+}
+
+/* Header Styles */
+.navbar {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-weight: 700;
+}
+
+/* Hero Section */
+.carousel-item {
+    height: 500px;
+}
+
+.carousel-item img {
+    object-fit: cover;
+    height: 100%;
+}
+
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 20px;
+    bottom: 50px;
+}
+
+/* Feature Boxes */
+.feature-box {
+    transition: all 0.3s ease;
+    border-radius: 10px;
+}
+
+.feature-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+    color: #28a745;
+}
+
+/* Category Cards */
+.category-card {
+    height: 250px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.category-card img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transition: all 0.5s ease;
+}
+
+.category-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.category-card:hover img {
+    transform: scale(1.1);
+}
+
+.category-card:hover .category-overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Product Cards */
+.product-card {
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid #eee;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.product-card img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.product-badge {
+    border-radius: 3px;
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.product-category {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.product-price .text-danger {
+    font-size: 18px;
+}
+
+/* Testimonial Cards */
+.testimonial-card {
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial-author img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+/* Blog Cards */
+.blog-card {
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.blog-card img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.blog-date {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Footer */
+footer {
+    background-color: #343a40;
+    color: #fff;
+}
+
+footer a {
+    color: #fff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #28a745;
+}
+
+.social-links a {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 36px;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    background-color: #28a745;
+    color: #fff;
+}
+
+/* Home Page Styles */
+.welcome-banner {
+    background: linear-gradient(to right, #28a745, #20c997);
+    border-radius: 10px;
+}
+
+.promotion-banner {
+    height: 150px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.promotion-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.promotion-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Authentication Pages */
+.auth-form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .carousel-item {
+        height: 300px;
+    }
+
+    .carousel-caption {
+        bottom: 20px;
+        padding: 10px;
+    }
+
+    .carousel-caption h1 {
+        font-size: 24px;
+    }
+
+    .category-card {
+        height: 180px;
+    }
+
+    .product-card img {
+        height: 150px;
+    }
+}
