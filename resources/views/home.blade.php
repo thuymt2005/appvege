@@ -18,7 +18,7 @@
             <div class="card-body">
                 <h5 class="card-title"><i class="fas fa-shopping-bag me-2"></i> Đơn hàng của tôi</h5>
                 <p class="card-text">Xem và quản lý các đơn hàng của bạn.</p>
-                <a href="{{ url('/orders') }}" class="btn btn-outline-primary">Xem đơn hàng</a>
+                <a href="{{ route("orders.index") }}" class="btn btn-outline-primary">Xem đơn hàng</a>
             </div>
         </div>
     </div>
@@ -36,13 +36,14 @@
             <div class="card-body">
                 <h5 class="card-title"><i class="fas fa-heart me-2"></i> Sản phẩm yêu thích</h5>
                 <p class="card-text">Xem danh sách sản phẩm bạn đã đánh dấu yêu thích.</p>
-                <a href="{{ url('/favorites') }}" class="btn btn-outline-primary">Xem yêu thích</a>
+                <a href="" class="btn btn-outline-primary">Xem yêu thích</a>
             </div>
         </div>
     </div>
 </div>
 
-<div class="featured-products mb-5">
+{{-- don hang de xuat --}}
+{{-- <div class="featured-products mb-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>Sản phẩm đề xuất cho bạn</h2>
         <a href="{{ url('/products') }}" class="btn btn-outline-success">Xem tất cả</a>
@@ -81,9 +82,10 @@
         </div>
         @endfor
     </div>
-</div>
+</div> --}}
 
-<div class="recent-orders mb-5">
+{{-- don hang gan day --}}
+{{-- <div class="recent-orders mb-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>Đơn hàng gần đây</h2>
         <a href="{{ url('/orders') }}" class="btn btn-outline-success">Xem tất cả</a>
@@ -125,8 +127,9 @@
             </tbody>
         </table>
     </div>
-</div>
+</div> --}}
 
+{{-- uu dai dac biet --}}
 <div class="special-offers mb-5">
     <h2 class="mb-4">Ưu đãi đặc biệt</h2>
     <div class="row">

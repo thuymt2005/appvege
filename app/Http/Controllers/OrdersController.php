@@ -9,6 +9,12 @@ class OrdersController extends Controller
     public function index()
     {
         // Logic to retrieve and display orders
-        return view('user.orders.index');
+        return view('orders.index');
+    }
+
+    public function show($orderId)
+    {
+        // Logic to retrieve and display a specific order
+        return view('orders.show', ['orderId' => $orderId]);
     }
 }

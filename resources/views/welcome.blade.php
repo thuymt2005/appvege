@@ -83,46 +83,6 @@
     </div>
 </div>
 
-<div class="featured-products mb-5">
-    <h2 class="text-center mb-4">Sản phẩm nổi bật</h2>
-    <div class="row">
-        @for ($i = 1; $i <= 8; $i++)
-        <div class="col-md-3 mb-4">
-            <div class="card product-card h-100">
-                <div class="badge bg-danger position-absolute top-0 end-0 m-2">-{{ rand(5, 20) }}%</div>
-                <img src="{{ asset('images/products/product' . $i . '.jpg') }}" class="card-img-top" alt="Sản phẩm {{ $i }}">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">Sản phẩm mẫu {{ $i }}</h5>
-                    <p class="card-text text-muted mb-1">Danh mục: Rau xanh</p>
-                    <div class="d-flex justify-content-between align-items-center mt-2">
-                        <div>
-                            <span class="text-danger fw-bold">{{ number_format(rand(20, 100) * 1000) }}đ</span>
-                            <span class="text-muted text-decoration-line-through">{{ number_format(rand(101, 150) * 1000) }}đ</span>
-                        </div>
-                        <div class="rating">
-                            @for ($j = 1; $j <= 5; $j++)
-                                <i class="fas fa-star {{ $j <= 4 ? 'text-warning' : 'text-muted' }}"></i>
-                            @endfor
-                        </div>
-                    </div>
-                    <div class="mt-auto pt-3">
-                        <div class="d-flex justify-content-between">
-                            <a href="{{ url('/products/' . $i) }}" class="btn btn-sm btn-outline-secondary">Chi tiết</a>
-                            <button class="btn btn-sm btn-success add-to-cart" data-id="{{ $i }}">
-                                <i class="fas fa-cart-plus"></i> Thêm vào giỏ
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @endfor
-    </div>
-    <div class="text-center mt-4">
-        <a href="{{ url('/products') }}" class="btn btn-outline-success btn-lg">Xem tất cả sản phẩm</a>
-    </div>
-</div>
-
 <div class="features-section mb-5">
     <h2 class="text-center mb-4">Tại sao chọn chúng tôi?</h2>
     <div class="row">
