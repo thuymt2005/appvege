@@ -1,11 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 use App\Http\Controllers\Authcontroller;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrdersController;
 
 use App\Http\Middleware\LoginMiddleware;
 use App\Http\Middleware\AdminMiddleware;
@@ -13,8 +16,10 @@ use App\Http\Middleware\UserMiddleware;
 use App\Http\Middleware\AuthMiddleware;
 
 Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+    return Auth::check() ? redirect()->route('home') : view('welcome');
+});
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 
 
 Route::middleware([AuthMiddleware::class])->group(function () {
@@ -22,8 +27,6 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     Route::post('/login', [Authcontroller::class, 'loginPost'])->name('login.post');
     Route::get('/register', [Authcontroller::class, 'register'])->name('register');
     Route::post('/register', [Authcontroller::class, 'registerPost'])->name('register.post');
-    Route::get('/forgot-password',[Authcontroller::class, 'forgotPassword' ])->name('forgot-password');
-    Route::post('/forgot-password', [Authcontroller::class, 'forgotPasswordPost'])->name('forgot-password.post');
 });
 
 Route::middleware([LoginMiddleware::class])->group(function () {
@@ -37,7 +40,9 @@ Route::middleware([LoginMiddleware::class, AdminMiddleware::class])->group(funct
 Route::middleware([LoginMiddleware::class, UserMiddleware::class])->group(function () {
     Route::get('/home', [UserController::class, 'home'])->name('home');
     Route::get('/profile', [UserController::class, 'profile'])->name('profile');
-    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
-    Route::get('/user/search', [UserController::class, 'search'])->name('user.search');
+
+
+    Route::get('/orders', [OrdersController::class, 'index'])->name('orders.index');
+    Route::get('/orders/{orderId}', [OrdersController::class, 'show'])->name('orders.show');
 });
