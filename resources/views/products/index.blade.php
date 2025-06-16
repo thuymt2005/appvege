@@ -4,20 +4,22 @@
 
 @section('content')
 <div class="container mx-auto px-4 py-8">
-    <!-- Page Header -->
-    <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-800 mb-2">Sản phẩm tươi ngon</h1>
-        <p class="text-gray-600">Khám phá những sản phẩm rau củ quả tươi ngon nhất</p>
-    </div>
+<!-- Page Header -->
+<div class="mb-4">
+    <h1 class="h3 fw-bold text-dark mb-2">Sản phẩm tươi ngon</h1>
+    <p class="text-muted">Khám phá những sản phẩm rau củ quả tươi ngon nhất</p>
+</div>
 
-    <!-- Filter and Sort Section -->
-    <div class="bg-white rounded-lg shadow-sm p-6 mb-8">
-        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-            <!-- Category Filter -->
-            <div class="flex flex-col sm:flex-row gap-4">
-                <div class="flex items-center gap-2">
-                    <label class="text-sm font-medium text-gray-700">Danh mục:</label>
-                    <select class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500">
+<!-- Filter and Sort Section -->
+<div class="bg-white rounded shadow-sm p-4 mb-4 border">
+    <div class="row gy-3 align-items-center justify-content-between">
+        <!-- Category and Price Filter -->
+        <div class="col-lg-8">
+            <div class="row g-3">
+                <!-- Category Filter -->
+                <div class="col-sm-6 col-md-4">
+                    <label class="form-label fw-medium text-dark">Danh mục:</label>
+                    <select class="form-select form-select-sm">
                         <option value="">Tất cả</option>
                         <option value="vegetables">Rau xanh</option>
                         <option value="fruits">Trái cây</option>
@@ -26,10 +28,10 @@
                     </select>
                 </div>
 
-                <!-- Price Range -->
-                <div class="flex items-center gap-2">
-                    <label class="text-sm font-medium text-gray-700">Giá:</label>
-                    <select class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500">
+                <!-- Price Filter -->
+                <div class="col-sm-6 col-md-4">
+                    <label class="form-label fw-medium text-dark">Giá:</label>
+                    <select class="form-select form-select-sm">
                         <option value="">Tất cả</option>
                         <option value="0-50000">Dưới 50,000đ</option>
                         <option value="50000-100000">50,000đ - 100,000đ</option>
@@ -38,154 +40,202 @@
                     </select>
                 </div>
             </div>
+        </div>
 
-            <!-- Sort Options -->
-            <div class="flex items-center gap-2">
-                <label class="text-sm font-medium text-gray-700">Sắp xếp:</label>
-                <select class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500">
-                    <option value="latest">Mới nhất</option>
-                    <option value="price_asc">Giá thấp đến cao</option>
-                    <option value="price_desc">Giá cao đến thấp</option>
-                    <option value="name_asc">Tên A-Z</option>
-                    <option value="popular">Phổ biến</option>
-                </select>
+        <!-- Sort Options -->
+        <div class="col-lg-4">
+            <div class="row g-2 align-items-center">
+                <div class="col-auto">
+                    <label class="form-label fw-medium text-dark mb-0">Sắp xếp:</label>
+                </div>
+                <div class="col">
+                    <select class="form-select form-select-sm">
+                        <option value="latest">Mới nhất</option>
+                        <option value="price_asc">Giá thấp đến cao</option>
+                        <option value="price_desc">Giá cao đến thấp</option>
+                        <option value="name_asc">Tên A-Z</option>
+                        <option value="popular">Phổ biến</option>
+                    </select>
+                </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Products Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+
+<!-- Products Grid -->
+    <div class="row g-4 mb-5">
         @forelse($products ?? [] as $product)
-        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-            <!-- Product Image -->
-            <div class="relative">
-                <img src="{{ asset('images/products/' . ($product->image ?? 'default.jpg')) }}"
-                     alt="{{ $product->name ?? 'Sản phẩm' }}"
-                     class="w-full h-48 object-cover">
+        <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+            <div class="card h-100 shadow-sm product-card">
+                <!-- Product Image -->
+                <div class="position-relative product-image-container">
+                    <img src="{{ asset($product->image_url ?? 'images/products/default.jpg') }}"
+                         alt="{{ $product->name }}"
+                         class="card-img-top product-image">
 
-                <!-- Discount Badge -->
-                @if(isset($product->discount) && $product->discount > 0)
-                <div class="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">
-                    -{{ $product->discount }}%
-                </div>
-                @endif
-
-                <!-- Quick View Button -->
-                <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center opacity-0 hover:opacity-100">
-                    <a href="{{ route('products.show', $product->id ?? 1) }}"
-                       class="bg-white text-gray-800 px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-100 transition-colors">
-                        Xem nhanh
-                    </a>
-                </div>
-            </div>
-
-            <!-- Product Info -->
-            <div class="p-4">
-                <div class="mb-2">
-                    <span class="text-xs text-gray-500 uppercase tracking-wide">
-                        {{ $product->category->name ?? 'Rau củ quả' }}
-                    </span>
+                    <!-- Quick View Button -->
+                    <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center product-overlay">
+                        <a href="{{ route('products.show', $product->id) }}"
+                           class="btn btn-light btn-sm quick-view-btn">
+                            <i class="fas fa-eye me-1"></i>
+                            Xem nhanh
+                        </a>
+                    </div>
                 </div>
 
-                <h3 class="font-semibold text-gray-800 mb-2 line-clamp-2">
-                    {{ $product->name ?? 'Rau xanh tươi ngon' }}
-                </h3>
-
-                <p class="text-gray-600 text-sm mb-3 line-clamp-2">
-                    {{ $product->description ?? 'Sản phẩm rau củ quả tươi ngon, chất lượng cao, được chọn lọc kỹ càng.' }}
-                </p>
-
-                <!-- Price -->
-                <div class="flex items-center justify-between mb-3">
-                    <div class="flex items-center gap-2">
-                        @if(isset($product->original_price) && $product->original_price > ($product->price ?? 0))
-                        <span class="text-gray-400 line-through text-sm">
-                            {{ number_format($product->original_price) }}đ
-                        </span>
-                        @endif
-                        <span class="text-green-600 font-bold text-lg">
-                            {{ number_format($product->price ?? 50000) }}đ
+                <!-- Product Info -->
+                <div class="card-body d-flex flex-column">
+                    <div class="mb-2">
+                        <span class="badge bg-light text-dark text-uppercase small">
+                            {{ $product->category->name ?? 'Chưa phân loại' }}
                         </span>
                     </div>
-                    <span class="text-xs text-gray-500">
-                        /{{ $product->unit ?? 'kg' }}
-                    </span>
-                </div>
 
-                <!-- Stock Status -->
-                <div class="mb-3">
-                    @if(($product->stock ?? 10) > 0)
-                    <span class="text-green-600 text-xs font-medium">
-                        <i class="fas fa-check-circle mr-1"></i>
-                        Còn hàng ({{ $product->stock ?? 10 }})
-                    </span>
-                    @else
-                    <span class="text-red-600 text-xs font-medium">
-                        <i class="fas fa-times-circle mr-1"></i>
-                        Hết hàng
-                    </span>
-                    @endif
-                </div>
+                    <h5 class="card-title fw-semibold text-truncate-2 mb-2">
+                        {{ $product->name }}
+                    </h5>
 
-                <!-- Action Buttons -->
-                <div class="flex gap-2">
-                    <button class="flex-1 bg-green-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-green-700 transition-colors flex items-center justify-center gap-2"
-                            onclick="addToCart({{ $product->id ?? 1 }})">
-                        <i class="fas fa-shopping-cart"></i>
-                        Thêm vào giỏ
-                    </button>
-                    <a href="{{ route('products.show', $product->id ?? 1) }}"
-                       class="px-3 py-2 border border-gray-300 rounded-md text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                        <i class="fas fa-eye"></i>
-                    </a>
+                    <p class="card-text text-muted small text-truncate-2 mb-3">
+                        {{ $product->description }}
+                    </p>
+
+                    <!-- Price -->
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="d-flex align-items-center">
+                            <span class="text-success fw-bold fs-5 me-1">
+                                {{ number_format($product->price, 0, ',', '.') }}đ
+                            </span>
+                        </div>
+                        <span class="text-muted small">
+                            /{{ $product->unit }}
+                        </span>
+                    </div>
+
+                    <!-- Stock Status -->
+                    <div class="mb-3">
+                        @if($product->stock_quantity > 0)
+                        <span class="text-success small fw-medium">
+                            <i class="fas fa-check-circle me-1"></i>
+                            Còn hàng ({{ $product->stock_quantity }})
+                        </span>
+                        @else
+                        <span class="text-danger small fw-medium">
+                            <i class="fas fa-times-circle me-1"></i>
+                            Hết hàng
+                        </span>
+                        @endif
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="mt-auto">
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-success btn-sm flex-fill"
+                                    onclick="addToCart({{ $product->id }})"
+                                    {{ $product->stock_quantity <= 0 ? 'disabled' : '' }}>
+                                <i class="fas fa-shopping-cart me-1"></i>
+                                Thêm vào giỏ
+                            </button>
+                            <a href="{{ route('products.show', $product->id) }}"
+                               class="btn btn-outline-secondary btn-sm">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         @empty
         <!-- Empty State -->
-        <div class="col-span-full text-center py-12">
-            <div class="mb-4">
-                <i class="fas fa-seedling text-6xl text-gray-300"></i>
+        <div class="col-12">
+            <div class="text-center py-5">
+                <div class="mb-4">
+                    <i class="fas fa-seedling display-1 text-muted opacity-50"></i>
+                </div>
+                <h3 class="h4 text-muted mb-3">Không tìm thấy sản phẩm</h3>
+                <p class="text-muted mb-4">Hiện tại chưa có sản phẩm nào trong danh mục này.</p>
+                <a href="{{ route('home') }}" class="btn btn-success">
+                    <i class="fas fa-home me-2"></i>
+                    Về trang chủ
+                </a>
             </div>
-            <h3 class="text-xl font-semibold text-gray-600 mb-2">Không tìm thấy sản phẩm</h3>
-            <p class="text-gray-500 mb-4">Hiện tại chưa có sản phẩm nào trong danh mục này.</p>
-            <a href="{{ route('home') }}" class="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition-colors">
-                Về trang chủ
-            </a>
         </div>
         @endforelse
     </div>
 
-    <!-- Pagination -->
-    @if(isset($products) && method_exists($products, 'links'))
-    <div class="flex justify-center">
-        {{ $products->links() }}
-    </div>
-    @endif
-</div>
+<style>
+.product-card {
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0,0,0,.125);
+}
 
-<!-- Add to Cart Modal -->
-<div id="cartModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
-    <div class="flex items-center justify-center min-h-screen p-4">
-        <div class="bg-white rounded-lg p-6 max-w-sm w-full">
-            <div class="text-center">
-                <div class="mb-4">
-                    <i class="fas fa-check-circle text-green-500 text-4xl"></i>
-                </div>
-                <h3 class="text-lg font-semibold mb-2">Đã thêm vào giỏ hàng!</h3>
-                <p class="text-gray-600 mb-4">Sản phẩm đã được thêm vào giỏ hàng của bạn.</p>
-                <div class="flex gap-2">
-                    <button onclick="closeCartModal()" class="flex-1 px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
-                        Tiếp tục mua
-                    </button>
-                    <a href="" class="flex-1 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 text-center">
-                        Xem giỏ hàng
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+.product-card:hover {
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+    transform: translateY(-2px);
+}
+
+.product-image-container {
+    overflow: hidden;
+    height: 200px;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.05);
+}
+
+.product-overlay {
+    background: rgba(0,0,0,0);
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+.product-card:hover .product-overlay {
+    background: rgba(0,0,0,0.2);
+    opacity: 1;
+}
+
+.quick-view-btn {
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+.product-card:hover .quick-view-btn {
+    transform: translateY(0);
+}
+
+.text-truncate-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.4;
+    max-height: 2.8em;
+}
+
+.gap-2 {
+    gap: 0.5rem;
+}
+
+@media (max-width: 576px) {
+    .product-image-container {
+        height: 150px;
+    }
+}
+</style>
+
+<!-- Pagination -->
+@if(isset($products) && method_exists($products, 'links'))
+<div class="flex justify-center">
+    {{ $products->links() }}
 </div>
+@endif
 
 <script>
 function addToCart(productId) {

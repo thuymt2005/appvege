@@ -4,21 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('category')->paginate(12); // hoặc all()
+        $products = Product::with('category')->paginate(12);
+        $categories = Category::all();
 
-        return view('products.index', compact('products'));
+        return view('products.index', compact('products', 'categories'));
     }
 
     public function show($id)
     {
-        // Logic to retrieve a single product by ID
-        return view('products.show', ['product' => $id]);
+        $product = Product::findOrFail($id);
+        return view('products.show', compact('product'));
     }
+
 
     public function create()
     {
