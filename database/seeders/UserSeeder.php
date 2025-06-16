@@ -2,35 +2,45 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
-    public function run(): void
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
     {
-        // Tạo Admin
+        // Tạo tài khoản admin
         User::create([
             'name' => 'Admin User',
-            'email' => 'admin@gmail.com',
-            'password' => Hash::make('admin'), // đổi nếu cần
-            'is_admin' => true,
+            'email' => 'admin@example.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'remember_token' => Str::random(10),
+            'address' => '123 Admin Street, Admin City',
             'phone' => '0123456789',
-            'address' => '123 Admin Street',
+            'role' => 'admin',
         ]);
 
-        // Tạo User thường
+        // Tạo một số tài khoản người dùng thông thường
         User::create([
-            'name' => 'Normal User',
-            'email' => 'user@gmail.com',
-            'password' => Hash::make('user'), // đổi nếu cần
-            'is_admin' => false,
+            'name' => 'Regular User',
+            'email' => 'user@example.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'remember_token' => Str::random(10),
+            'address' => '456 User Avenue, User Town',
             'phone' => '0987654321',
-            'address' => '456 User Avenue',
+            'role' => 'user',
         ]);
 
-        // Tạo nhiều user ngẫu nhiên (factory)
+        // Tạo thêm 10 người dùng ngẫu nhiên
         // User::factory()->count(10)->create();
     }
 }

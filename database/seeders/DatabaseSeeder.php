@@ -6,11 +6,21 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    public function run(): void
+    /**
+     * Seed the application's database.
+     *
+     * @return void
+     */
+    public function run()
     {
-        // Gọi các seeder ở đây
         $this->call([
-            AccountSeeder::class,
+            UserSeeder::class,
+            CategorySeeder::class,
+            ProductSeeder::class,
+            CartSeeder::class,
+            CartItemSeeder::class,
+            OrderSeeder::class,
+            OrderItemSeeder::class,
         ]);
     }
 }
