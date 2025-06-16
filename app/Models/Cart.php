@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Cart extends Model
 {
     use HasFactory;
 
@@ -15,14 +15,8 @@ class Product extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'slug',
-        'description',
-        'price',
-        'stock_quantity',
-        'unit',
-        'image_url',
-        'category_id',
+        'user_id',
+        'is_active',
     ];
 
     /**
@@ -31,30 +25,32 @@ class Product extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'price' => 'decimal:2',
+        'is_active' => 'boolean',
     ];
 
     /**
-     * Get the category that owns the product.
+     * Get the user that owns the cart.
      */
-    public function category()
+    public function user()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(User::class);
     }
 
     /**
-     * Get the cart items for the product.
+     * Get the items for the cart.
      */
-    public function cartItems()
+    public function items()
     {
         return $this->hasMany(CartItem::class);
     }
 
     /**
-     * Get the order items for the product.
+     * Get the total price of the cart.
      */
-    public function orderItems()
+    public function getTotalPriceAttribute()
     {
-        return $this->hasMany(OrderItem::class);
+        return $this->items->sum(function ($item) {
+            return $item->product->price * $item->quantity;
+        });
     }
 }

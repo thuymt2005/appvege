@@ -24,10 +24,10 @@
                         <a href="{{ route('user.profile') }}" class="list-group-item list-group-item-action">
                             <i class="fas fa-user-edit me-2"></i> Thông tin cá nhân
                         </a>
-                        <a href="{{ route('orders.index') }}" class="list-group-item list-group-item-action">
+                        <a href="" class="list-group-item list-group-item-action">
                             <i class="fas fa-shopping-bag me-2"></i> Đơn hàng của tôi
                         </a>
-                        <a href="{{ route('cart.index') }}" class="list-group-item list-group-item-action">
+                        <a href="" class="list-group-item list-group-item-action">
                             <i class="fas fa-shopping-cart me-2"></i> Giỏ hàng
                         </a>
                     </div>

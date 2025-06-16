@@ -2,33 +2,33 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+// use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use  HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
      *
-     * @var list<string>
+     * @var array<int, string>
      */
-// app/Models/User.php
-
     protected $fillable = [
-        'name', 'email', 'password',
-        'is_admin', 'phone', 'address',
+        'name',
+        'email',
+        'password',
+        'address',
+        'phone',
+        'role',
     ];
-
 
     /**
      * The attributes that should be hidden for serialization.
      *
-     * @var list<string>
+     * @var array<int, string>
      */
     protected $hidden = [
         'password',
@@ -36,36 +36,44 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * The attributes that should be cast.
      *
-     * @return array<string, string>
+     * @var array<string, string>
      */
-    protected function casts(): array
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
+
+    /**
+     * Get the carts for the user.
+     */
+    public function carts()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->hasMany(Cart::class);
     }
 
-    public function orders() {
-    return $this->hasMany(Order::class);
-}
+    /**
+     * Get the active cart for the user.
+     */
+    public function activeCart()
+    {
+        return $this->hasOne(Cart::class)->where('is_active', true);
+    }
 
-public function cartItems() {
-    return $this->hasMany(CartItem::class);
-}
+    /**
+     * Get the orders for the user.
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 
-public function isAdmin()
-{
-    return $this->is_admin === 1;
-}
-
-public function isUser()
-{
-    return $this->is_admin === 0;
-}
-
-
-
+    /**
+     * Check if user is admin.
+     */
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
 }

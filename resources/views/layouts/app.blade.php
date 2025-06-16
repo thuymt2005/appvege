@@ -158,7 +158,7 @@
                         </li>
                     @else
                         <li class="nav-item">
-                            <a class="nav-link position-relative" href="{{ route('cart.index') }}">
+                            <a class="nav-link position-relative" href="">
                                 <i class="fas fa-shopping-cart"></i>
                                 <span class="cart-badge position-absolute top-0 start-100 translate-middle text-white">
                                     {{ session('cart') ? count(session('cart')) : 0 }}
@@ -172,7 +172,7 @@
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a class="dropdown-item" href="{{ route('user.dashboard') }}">Dashboard</a></li>
                                 <li><a class="dropdown-item" href="{{ route('user.profile') }}">Thông tin cá nhân</a></li>
-                                <li><a class="dropdown-item" href="{{ route('orders.index') }}">Đơn hàng</a></li>
+                                <li><a class="dropdown-item" href="">Đơn hàng</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 @if(Auth::user()->is_admin)
                                     <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}">Quản trị</a></li>
