@@ -105,7 +105,7 @@
                 </div>
 
                 <!-- Quantity Selector & Add to Cart -->
-                <form action="" method="POST" class="mb-4">
+                <form action="{{ route('cart.add', $product->id) }}" method="POST" class="mb-4">
                     @csrf
                     <div class="row g-3 align-items-end">
                         <div class="col-md-4">

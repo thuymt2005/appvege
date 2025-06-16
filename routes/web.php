@@ -41,6 +41,7 @@ Route::middleware([LoginMiddleware::class, UserMiddleware::class])->group(functi
     Route::get('/home', [UserController::class, 'home'])->name('home');
     Route::get('/profile', [UserController::class, 'profile'])->name('profile');
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
+    Route::post('/cart/add/{product_id}', [CartController::class, 'add'])->name('cart.add');
 
 
     Route::get('/orders', [OrdersController::class, 'index'])->name('orders.index');
