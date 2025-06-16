@@ -19,9 +19,9 @@ class UserSeeder extends Seeder
         // Tạo tài khoản admin
         User::create([
             'name' => 'Admin User',
-            'email' => 'admin@example.com',
+            'email' => 'admin@gmail.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('password'),
+            'password' => Hash::make('admin'),
             'remember_token' => Str::random(10),
             'address' => '123 Admin Street, Admin City',
             'phone' => '0123456789',
@@ -31,9 +31,9 @@ class UserSeeder extends Seeder
         // Tạo một số tài khoản người dùng thông thường
         User::create([
             'name' => 'Regular User',
-            'email' => 'user@example.com',
+            'email' => 'user@gmail.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('password'),
+            'password' => Hash::make('user'),
             'remember_token' => Str::random(10),
             'address' => '456 User Avenue, User Town',
             'phone' => '0987654321',

@@ -1,0 +1,186 @@
+vegetable-shop/
+│
+├── app/                                # Thư mục chứa mã nguồn chính
+│   ├── Console/                        # Các lệnh console
+│   ├── Exceptions/                     # Xử lý ngoại lệ
+│   ├── Http/
+│   │   ├── Controllers/                # Controllers
+│   │   │   ├── Admin/                  # Controllers cho admin
+│   │   │   │   ├── CategoryController.php
+│   │   │   │   ├── DashboardController.php
+│   │   │   │   ├── OrderController.php
+│   │   │   │   ├── ProductController.php
+│   │   │   │   └── UserController.php
+│   │   │   │
+│   │   │   ├── Auth/                   # Controllers xác thực
+│   │   │   │   ├── LoginController.php
+│   │   │   │   ├── RegisterController.php
+│   │   │   │   └── ProfileController.php
+│   │   │   │
+│   │   │   ├── CartController.php      # Quản lý giỏ hàng
+│   │   │   ├── CheckoutController.php  # Xử lý thanh toán
+│   │   │   ├── HomeController.php      # Trang chủ
+│   │   │   ├── OrderController.php     # Quản lý đơn hàng người dùng
+│   │   │   ├── ProductController.php   # Hiển thị sản phẩm
+│   │   │   └── SearchController.php    # Xử lý tìm kiếm
+│   │   │
+│   │   ├── Middleware/                 # Middleware
+│   │   │   ├── AdminMiddleware.php     # Kiểm tra quyền admin
+│   │   │   └── CustomerMiddleware.php  # Kiểm tra quyền khách hàng
+│   │   │
+│   │   └── Requests/                   # Form requests
+│   │       ├── CategoryRequest.php
+│   │       ├── ProductRequest.php
+│   │       ├── ProfileUpdateRequest.php
+│   │       └── UserRequest.php
+│   │
+│   ├── Models/                         # Models
+│   │   ├── Cart.php
+│   │   ├── Category.php
+│   │   ├── Order.php
+│   │   ├── OrderDetail.php
+│   │   ├── Product.php
+│   │   └── User.php
+│   │
+│   ├── Providers/                      # Service providers
+│   └── Services/                       # Business logic
+│       ├── CartService.php
+│       ├── OrderService.php
+│       └── PaymentService.php
+│
+├── bootstrap/                          # Bootstrap Laravel
+├── config/                             # Cấu hình
+├── database/                           # Database
+│   ├── factories/                      # Factories cho testing
+│   │   ├── CategoryFactory.php
+│   │   ├── ProductFactory.php
+│   │   └── UserFactory.php
+│   │
+│   ├── migrations/                     # Migrations
+│   │   ├── 2014_10_12_000000_create_users_table.php
+│   │   ├── 2023_01_01_000001_create_categories_table.php
+│   │   ├── 2023_01_01_000002_create_products_table.php
+│   │   ├── 2023_01_01_000003_create_carts_table.php
+│   │   ├── 2023_01_01_000004_create_orders_table.php
+│   │   └── 2023_01_01_000005_create_order_details_table.php
+│   │
+│   └── seeders/                        # Seeders
+│       ├── CategorySeeder.php
+│       ├── DatabaseSeeder.php
+│       ├── ProductSeeder.php
+│       └── UserSeeder.php
+│
+├── public/                             # Public assets
+│   ├── css/
+│   ├── images/
+│   │   ├── products/                   # Ảnh sản phẩm
+│   │   └── banners/                    # Ảnh banner
+│   ├── js/
+│   └── favicon.ico
+│
+├── resources/                          # Resources
+│   ├── css/                            # CSS
+│   ├── js/                             # JavaScript
+│   └── views/                          # Views
+│       ├── admin/                      # Views cho admin
+│       │   ├── categories/
+│       │   │   ├── create.blade.php
+│       │   │   ├── edit.blade.php
+│       │   │   └── index.blade.php
+│       │   ├── dashboard.blade.php
+│       │   ├── orders/
+│       │   │   ├── index.blade.php
+│       │   │   └── show.blade.php
+│       │   ├── products/
+│       │   │   ├── create.blade.php
+│       │   │   ├── edit.blade.php
+│       │   │   └── index.blade.php
+│       │   └── users/
+│       │       ├── create.blade.php
+│       │       ├── edit.blade.php
+│       │       └── index.blade.php
+│       │
+│       ├── auth/                       # Views xác thực
+│       │   ├── login.blade.php
+│       │   ├── register.blade.php
+│       │   └── profile.blade.php
+│       │
+│       ├── cart/                       # Views giỏ hàng
+│       │   └── index.blade.php
+│       │
+│       ├── checkout/                   # Views thanh toán
+│       │   ├── index.blade.php
+│       │   └── success.blade.php
+│       │
+│       ├── components/                 # Components
+│       │   ├── alert.blade.php
+│       │   ├── breadcrumb.blade.php
+│       │   ├── footer.blade.php
+│       │   ├── header.blade.php
+│       │   ├── navigation.blade.php
+│       │   └── product-card.blade.php
+│       │
+│       ├── layouts/                    # Layouts
+│       │   ├── admin.blade.php
+│       │   ├── app.blade.php
+│       │   └── guest.blade.php
+│       │
+│       ├── orders/                     # Views đơn hàng người dùng
+│       │   ├── index.blade.php
+│       │   └── show.blade.php
+│       │
+│       ├── products/                   # Views sản phẩm
+│       │   ├── index.blade.php
+│       │   └── show.blade.php
+│       │
+│       ├── search/                     # Views tìm kiếm
+│       │   └── index.blade.php
+│       │
+│       ├── home.blade.php              # Trang chủ
+│       └── welcome.blade.php           # Trang chào mừng
+│
+├── routes/                             # Routes
+│   ├── api.php                         # API routes
+│   ├── channels.php                    # Broadcast channels
+│   ├── console.php                     # Console routes
+│   └── web.php                         # Web routes
+│
+├── storage/                            # Storage
+│   ├── app/
+│   │   └── public/
+│   │       └── products/               # Ảnh sản phẩm upload
+│   ├── framework/
+│   └── logs/
+│
+├── tests/                              # Tests
+│   ├── Feature/
+│   │   ├── Admin/
+│   │   │   ├── CategoryTest.php
+│   │   │   ├── OrderTest.php
+│   │   │   ├── ProductTest.php
+│   │   │   └── UserTest.php
+│   │   │
+│   │   ├── Auth/
+│   │   │   ├── LoginTest.php
+│   │   │   └── RegisterTest.php
+│   │   │
+│   │   ├── CartTest.php
+│   │   ├── CheckoutTest.php
+│   │   ├── HomeTest.php
+│   │   ├── OrderTest.php
+│   │   ├── ProductTest.php
+│   │   └── SearchTest.php
+│   │
+│   └── Unit/
+│       ├── CartTest.php
+│       ├── OrderTest.php
+│       └── ProductTest.php
+│
+├── .env                                # Environment variables
+├── .env.example                        # Example environment variables
+├── .gitignore                          # Git ignore
+├── artisan                             # Artisan CLI
+├── composer.json                       # Composer dependencies
+├── package.json                        # NPM dependencies
+├── phpunit.xml                         # PHPUnit configuration
+└── README.md                           # Project documentation
