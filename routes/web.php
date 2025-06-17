@@ -40,10 +40,14 @@ Route::middleware([LoginMiddleware::class, AdminMiddleware::class])->group(funct
 Route::middleware([LoginMiddleware::class, UserMiddleware::class])->group(function () {
     Route::get('/home', [UserController::class, 'home'])->name('home');
     Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+    Route::post('/profile/update', [UserController::class, 'update'])->name('profile.update');
+
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
     Route::post('/cart/add/{product_id}', [CartController::class, 'add'])->name('cart.add');
+    Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
 
 
     Route::get('/orders', [OrdersController::class, 'index'])->name('orders.index');
     Route::get('/orders/{orderId}', [OrdersController::class, 'show'])->name('orders.show');
+    Route::post('/orders/checkout/', [OrdersController::class, 'checkout'])->name('orders.checkout');
 });

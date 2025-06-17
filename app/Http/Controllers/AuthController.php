@@ -55,7 +55,7 @@ class AuthController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:accounts,email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed|min:6',
         ]);
 
@@ -71,17 +71,7 @@ class AuthController extends Controller
         return redirect()->route('home'); // chuyển về trang user
     }
 
-    // Hien thi trang quen mat khau
-    public function forgotPassword()
-    {
-        return view('auth.forgot-password');
-    }
 
-    // Xu ly quen mat khau
-    public function forgotPasswordPost(Request $request)
-    {
-        return redirect()->route('login')->with('status', 'Link reset password đã được gửi đến email của bạn.');
-    }
     // Xu ly dang xuat
     public function logout()
     {

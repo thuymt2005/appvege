@@ -130,12 +130,12 @@
                     <!-- Action Buttons -->
                     <div class="mt-auto">
                         <div class="d-flex gap-2">
-                            <button class="btn btn-success btn-sm flex-fill"
-                                    onclick="addToCart({{ $product->id }})"
-                                    {{ $product->stock_quantity <= 0 ? 'disabled' : '' }}>
-                                <i class="fas fa-shopping-cart me-1"></i>
-                                Thêm vào giỏ
-                            </button>
+                            <a href="{{ route('products.show', $product->id) }}">
+                                <button class="btn btn-success btn-sm flex-fill">
+                                    <i class="fas fa-shopping-cart me-1"></i>
+                                    Thêm vào giỏ
+                                </button>
+                            </a>
                             <a href="{{ route('products.show', $product->id) }}"
                                class="btn btn-outline-secondary btn-sm">
                                 <i class="fas fa-eye"></i>
@@ -238,10 +238,6 @@
 @endif
 
 <script>
-function addToCart(productId) {
-    // Add to cart logic here
-    document.getElementById('cartModal').classList.remove('hidden');
-}
 
 function closeCartModal() {
     document.getElementById('cartModal').classList.add('hidden');

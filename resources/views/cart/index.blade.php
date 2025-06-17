@@ -20,14 +20,14 @@
             <h2 class="mb-4">
                 <i class="fas fa-shopping-cart text-success"></i>
                 Giỏ hàng của bạn
-                @if(isset($cartItems) && count($cartItems) > 0)
-                    <span class="badge bg-success ms-2">{{ count($cartItems) }} sản phẩm</span>
+                @if(isset($cart) && $cart && $cart->cartItems->count() > 0)
+                    <span class="badge bg-success ms-2">{{ $cart->cartItems->count() }} sản phẩm</span>
                 @endif
             </h2>
         </div>
     </div>
 
-    @if(isset($cartItems) && count($cartItems) > 0)
+    @if(isset($cart) && $cart && $cart->cartItems->count() > 0)
         <div class="row">
             <!-- Danh sách sản phẩm trong giỏ hàng -->
             <div class="col-lg-8">
@@ -39,13 +39,13 @@
                         </h5>
                     </div>
                     <div class="card-body p-0">
-                        @foreach($cartItems as $item)
-                            <div class="cart-item border-bottom p-3" data-item-id="{{ $item->id }}">
+                        @foreach($cart->cartItems as $cartItem)
+                            <div class="cart-item border-bottom p-3" data-item-id="{{ $cartItem->id }}">
                                 <div class="row align-items-center">
                                     <!-- Hình ảnh sản phẩm -->
                                     <div class="col-md-2 col-sm-3">
-                                        <img src="{{ asset('storage/products/' . ($item->product->image ?? 'default.jpg')) }}"
-                                             alt="{{ $item->product->name }}"
+                                        <img src="{{ asset('storage/products/' . ($cartItem->product->image ?? 'default.jpg')) }}"
+                                             alt="{{ $cartItem->product->name }}"
                                              class="img-fluid rounded cart-product-image"
                                              style="width: 80px; height: 80px; object-fit: cover;">
                                     </div>
@@ -53,39 +53,29 @@
                                     <!-- Thông tin sản phẩm -->
                                     <div class="col-md-4 col-sm-9">
                                         <h6 class="mb-1">
-                                            <a href="{{ route('products.show', $item->product->id) }}"
+                                            <a href="{{ route('products.show', $cartItem->product->id) }}"
                                                class="text-decoration-none text-dark">
-                                                {{ $item->product->name }}
+                                                {{ $cartItem->product->name }}
                                             </a>
                                         </h6>
                                         <p class="text-muted small mb-1">
                                             <i class="fas fa-tag"></i>
-                                            {{ $item->product->category->name ?? 'Chưa phân loại' }}
+                                            {{ $cartItem->product->category->name ?? 'Chưa phân loại' }}
                                         </p>
                                         <p class="text-success fw-bold mb-0">
-                                            {{ number_format($item->product->price, 0, ',', '.') }}đ / {{ $item->product->unit ?? 'kg' }}
+                                            {{ number_format($cartItem->product->price, 0, ',', '.') }}đ / {{ $cartItem->product->unit ?? 'kg' }}
                                         </p>
                                     </div>
 
-                                    <!-- Điều chỉnh số lượng -->
                                     <div class="col-md-3 col-sm-6">
                                         <div class="d-flex align-items-center justify-content-center">
-                                            <button class="btn btn-outline-secondary btn-sm quantity-btn"
-                                                    onclick="updateQuantity({{ $item->id }}, 'decrease')"
-                                                    {{ $item->quantity <= 1 ? 'disabled' : '' }}>
-                                                <i class="fas fa-minus"></i>
-                                            </button>
                                             <input type="number"
-                                                   class="form-control form-control-sm mx-2 text-center quantity-input"
-                                                   value="{{ $item->quantity }}"
+                                                   class="form-control form-control-sm mx-2 text-center "
+                                                   value="{{ $cartItem->quantity }}"
                                                    min="1"
                                                    max="99"
                                                    style="width: 60px;"
-                                                   onchange="updateQuantity({{ $item->id }}, 'set', this.value)">
-                                            <button class="btn btn-outline-secondary btn-sm quantity-btn"
-                                                    onclick="updateQuantity({{ $item->id }}, 'increase')">
-                                                <i class="fas fa-plus"></i>
-                                            </button>
+                                                   readonly>
                                         </div>
                                     </div>
 
@@ -93,10 +83,10 @@
                                     <div class="col-md-3 col-sm-6">
                                         <div class="text-end">
                                             <p class="fw-bold text-success mb-2 item-total">
-                                                {{ number_format($item->product->price * $item->quantity, 0, ',', '.') }}đ
+                                                {{ number_format($cartItem->product->price * $cartItem->quantity, 0, ',', '.') }}đ
                                             </p>
                                             <button class="btn btn-outline-danger btn-sm"
-                                                    onclick="removeFromCart({{ $item->id }})"
+                                                    onclick="removeFromCart({{ $cartItem->id }})"
                                                     title="Xóa khỏi giỏ hàng">
                                                 <i class="fas fa-trash"></i>
                                             </button>
@@ -130,8 +120,8 @@
                         <div class="d-flex justify-content-between mb-3">
                             <span>Tạm tính:</span>
                             <span class="fw-bold subtotal">
-                                {{ number_format($cartItems->sum(function($item) {
-                                    return $item->product->price * $item->quantity;
+                                {{ number_format($cart->cartItems->sum(function($cartItem) {
+                                    return $cartItem->product->price * $cartItem->quantity;
                                 }), 0, ',', '.') }}đ
                             </span>
                         </div>
@@ -146,8 +136,8 @@
                         <div class="d-flex justify-content-between mb-4">
                             <span class="fw-bold fs-5">Tổng cộng:</span>
                             <span class="fw-bold fs-5 text-success total-amount">
-                                {{ number_format($cartItems->sum(function($item) {
-                                    return $item->product->price * $item->quantity;
+                                {{ number_format($cart->cartItems->sum(function($cartItem) {
+                                    return $cartItem->product->price * $cartItem->quantity;
                                 }), 0, ',', '.') }}đ
                             </span>
                         </div>
@@ -158,7 +148,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control form-control-sm"
                                        placeholder="Nhập mã giảm giá" id="couponCode">
-                                <button class="btn btn-outline-secondary btn-sm" type="button" onclick="applyCoupon()">
+                                <button class="btn btn-outline-secondary btn-sm" type="button" onclick="">
                                     Áp dụng
                                 </button>
                             </div>
@@ -166,10 +156,13 @@
 
                         <!-- Nút thanh toán -->
                         <div class="d-grid">
-                            <a href="{{ route('checkout.index') }}" class="btn btn-success btn-lg">
-                                <i class="fas fa-credit-card"></i>
-                                Tiến hành thanh toán
-                            </a>
+                            <form action="{{ route('orders.checkout') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-success btn-lg d-grid">
+                                    <i class="fas fa-credit-card"></i>
+                                    Tiến hành thanh toán
+                                </button>
+                            </form>
                         </div>
 
                         <!-- Thông tin bảo mật -->
@@ -191,22 +184,40 @@
                         </h6>
                     </div>
                     <div class="card-body p-2">
-                        <!-- Giả lập một số sản phẩm gợi ý -->
-                        @for($i = 1; $i <= 3; $i++)
-                            <div class="d-flex align-items-center mb-2 p-2 border rounded">
-                                <img src="{{ asset('images/products/sample-' . $i . '.jpg') }}"
-                                     alt="Sản phẩm gợi ý"
-                                     class="me-2 rounded"
-                                     style="width: 40px; height: 40px; object-fit: cover;">
-                                <div class="flex-grow-1">
-                                    <p class="mb-0 small">Rau củ tươi ngon</p>
-                                    <p class="mb-0 small text-success fw-bold">25.000đ</p>
+                        @if(isset($suggestedProducts) && $suggestedProducts->count() > 0)
+                            @foreach($suggestedProducts as $product)
+                                <div class="d-flex align-items-center mb-2 p-2 border rounded">
+                                    <img src="{{ asset('storage/products/' . ($product->image ?? 'default.jpg')) }}"
+                                         alt="{{ $product->name }}"
+                                         class="me-2 rounded"
+                                         style="width: 40px; height: 40px; object-fit: cover;">
+                                    <div class="flex-grow-1">
+                                        <p class="mb-0 small">{{ $product->name }}</p>
+                                        <p class="mb-0 small text-success fw-bold">{{ number_format($product->price, 0, ',', '.') }}đ</p>
+                                    </div>
+                                    <button class="btn btn-outline-success btn-sm" onclick="">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
                                 </div>
-                                <button class="btn btn-outline-success btn-sm">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </div>
-                        @endfor
+                            @endforeach
+                        @else
+                            <!-- Fallback nếu không có sản phẩm gợi ý -->
+                            @for($i = 1; $i <= 3; $i++)
+                                <div class="d-flex align-items-center mb-2 p-2 border rounded">
+                                    <img src="{{ asset('images/products/sample-' . $i . '.jpg') }}"
+                                         alt="Sản phẩm gợi ý"
+                                         class="me-2 rounded"
+                                         style="width: 40px; height: 40px; object-fit: cover;">
+                                    <div class="flex-grow-1">
+                                        <p class="mb-0 small">Rau củ tươi ngon</p>
+                                        <p class="mb-0 small text-success fw-bold">25.000đ</p>
+                                    </div>
+                                    <button class="btn btn-outline-success btn-sm">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            @endfor
+                        @endif
                     </div>
                 </div>
             </div>
@@ -234,39 +245,56 @@
                     <div class="col-12">
                         <h5 class="text-center mb-4">Danh mục nổi bật</h5>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        <div class="card h-100 border-0 shadow-sm">
-                            <div class="card-body text-center">
-                                <div class="mb-3">
-                                    <i class="fas fa-carrot text-warning" style="font-size: 3rem;"></i>
+                    @if(isset($featuredCategories) && $featuredCategories->count() > 0)
+                        @foreach($featuredCategories as $category)
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100 border-0 shadow-sm">
+                                    <div class="card-body text-center">
+                                        <div class="mb-3">
+                                            <i class="fas fa-{{ $category->icon ?? 'leaf' }} text-success" style="font-size: 3rem;"></i>
+                                        </div>
+                                        <h6>{{ $category->name }}</h6>
+                                        <a href="{{ route('products.index', ['category' => $category->id]) }}" class="btn btn-outline-success btn-sm">Xem thêm</a>
+                                    </div>
                                 </div>
-                                <h6>Rau củ tươi</h6>
-                                <a href="#" class="btn btn-outline-success btn-sm">Xem thêm</a>
+                            </div>
+                        @endforeach
+                    @else
+                        <!-- Fallback categories -->
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-body text-center">
+                                    <div class="mb-3">
+                                        <i class="fas fa-carrot text-warning" style="font-size: 3rem;"></i>
+                                    </div>
+                                    <h6>Rau củ tươi</h6>
+                                    <a href="{{ route('products.index') }}" class="btn btn-outline-success btn-sm">Xem thêm</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <div class="card h-100 border-0 shadow-sm">
-                            <div class="card-body text-center">
-                                <div class="mb-3">
-                                    <i class="fas fa-apple-alt text-danger" style="font-size: 3rem;"></i>
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-body text-center">
+                                    <div class="mb-3">
+                                        <i class="fas fa-apple-alt text-danger" style="font-size: 3rem;"></i>
+                                    </div>
+                                    <h6>Trái cây tươi</h6>
+                                    <a href="{{ route('products.index') }}" class="btn btn-outline-success btn-sm">Xem thêm</a>
                                 </div>
-                                <h6>Trái cây tươi</h6>
-                                <a href="#" class="btn btn-outline-success btn-sm">Xem thêm</a>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <div class="card h-100 border-0 shadow-sm">
-                            <div class="card-body text-center">
-                                <div class="mb-3">
-                                    <i class="fas fa-leaf text-success" style="font-size: 3rem;"></i>
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-body text-center">
+                                    <div class="mb-3">
+                                        <i class="fas fa-leaf text-success" style="font-size: 3rem;"></i>
+                                    </div>
+                                    <h6>Rau lá xanh</h6>
+                                    <a href="{{ route('products.index') }}" class="btn btn-outline-success btn-sm">Xem thêm</a>
                                 </div>
-                                <h6>Rau lá xanh</h6>
-                                <a href="#" class="btn btn-outline-success btn-sm">Xem thêm</a>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -326,48 +354,12 @@
 
 <!-- JavaScript cho chức năng giỏ hàng -->
 <script>
-// Cập nhật số lượng sản phẩm
-function updateQuantity(itemId, action, value = null) {
-    let quantity = 1;
-    const input = document.querySelector(`[data-item-id="${itemId}"] .quantity-input`);
 
-    if (action === 'increase') {
-        quantity = parseInt(input.value) + 1;
-    } else if (action === 'decrease') {
-        quantity = Math.max(1, parseInt(input.value) - 1);
-    } else if (action === 'set' && value) {
-        quantity = Math.max(1, parseInt(value));
-    }
-
-    // Gửi AJAX request để cập nhật số lượng
-    fetch(`/cart/update/${itemId}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        },
-        body: JSON.stringify({ quantity: quantity })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            input.value = quantity;
-            updateCartDisplay();
-            showToast('Đã cập nhật số lượng sản phẩm', 'success');
-        } else {
-            showToast('Có lỗi xảy ra khi cập nhật', 'error');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        showToast('Có lỗi xảy ra khi cập nhật', 'error');
-    });
-}
 
 // Xóa sản phẩm khỏi giỏ hàng
-function removeFromCart(itemId) {
+function removeFromCart(cartItemId) {
     if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?')) {
-        fetch(`/cart/remove/${itemId}`, {
+        fetch(`/cart/remove/${cartItemId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -377,7 +369,7 @@ function removeFromCart(itemId) {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                document.querySelector(`[data-item-id="${itemId}"]`).remove();
+                document.querySelector(`[data-item-id="${cartItemId}"]`).remove();
                 updateCartDisplay();
                 showToast('Đã xóa sản phẩm khỏi giỏ hàng', 'success');
 
@@ -398,54 +390,38 @@ function removeFromCart(itemId) {
     }
 }
 
-// Áp dụng mã giảm giá
-function applyCoupon() {
-    const couponCode = document.getElementById('couponCode').value.trim();
-
-    if (!couponCode) {
-        showToast('Vui lòng nhập mã giảm giá', 'warning');
-        return;
-    }
-
-    fetch('/cart/apply-coupon', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        },
-        body: JSON.stringify({ coupon_code: couponCode })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            updateCartDisplay();
-            showToast('Áp dụng mã giảm giá thành công!', 'success');
-        } else {
-            showToast(data.message || 'Mã giảm giá không hợp lệ', 'error');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        showToast('Có lỗi xảy ra khi áp dụng mã giảm giá', 'error');
-    });
-}
-
 // Cập nhật hiển thị giỏ hàng
 function updateCartDisplay() {
     // Tính toán lại tổng tiền
     let subtotal = 0;
+
     document.querySelectorAll('.cart-item').forEach(item => {
-        const quantity = parseInt(item.querySelector('.quantity-input').value);
-        const price = parseInt(item.querySelector('.text-success').textContent.replace(/[^\d]/g, ''));
+        const quantityInput = item.querySelector('.quantity-input');
+        const priceTextElem = item.querySelector('.text-success.fw-bold');
+        const itemTotalElem = item.querySelector('.item-total');
+
+        if (!quantityInput || !priceTextElem || !itemTotalElem) return;
+
+        const quantity = parseInt(quantityInput.value);
+        const priceText = priceTextElem.textContent;
+        const price = parseInt(priceText.replace(/[^\d]/g, ''));
         const itemTotal = price * quantity;
 
-        item.querySelector('.item-total').textContent = itemTotal.toLocaleString('vi-VN') + 'đ';
+        itemTotalElem.textContent = itemTotal.toLocaleString('vi-VN') + 'đ';
         subtotal += itemTotal;
     });
 
-    document.querySelector('.subtotal').textContent = subtotal.toLocaleString('vi-VN') + 'đ';
-    document.querySelector('.total-amount').textContent = subtotal.toLocaleString('vi-VN') + 'đ';
+    const subtotalElem = document.querySelector('.subtotal');
+    const totalElem = document.querySelector('.total-amount');
+
+    if (subtotalElem) {
+        subtotalElem.textContent = subtotal.toLocaleString('vi-VN') + 'đ';
+    }
+    if (totalElem) {
+        totalElem.textContent = subtotal.toLocaleString('vi-VN') + 'đ';
+    }
 }
+
 
 // Hiển thị thông báo
 function showToast(message, type = 'info') {
@@ -473,12 +449,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Xử lý thay đổi số lượng bằng input
     document.querySelectorAll('.quantity-input').forEach(input => {
         input.addEventListener('blur', function() {
-            const itemId = this.closest('.cart-item').dataset.itemId;
+            const cartItemId = this.closest('.cart-item').dataset.itemId;
             const value = parseInt(this.value);
             if (value < 1) {
                 this.value = 1;
             }
-            updateQuantity(itemId, 'set', this.value);
+            // updateQuantity(cartItemId, 'set', this.value);
         });
     });
 });

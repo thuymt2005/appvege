@@ -33,12 +33,12 @@
                         </a>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                        <a href="{{ url('/addresses') }}" class="text-decoration-none text-dark w-100">
+                        <a href="" class="text-decoration-none text-dark w-100">
                             <i class="fas fa-map-marker-alt fa-fw me-3"></i>Địa chỉ giao hàng
                         </a>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                        <a href="{{ url('/change-password') }}" class="text-decoration-none text-dark w-100">
+                        <a href="" class="text-decoration-none text-dark w-100">
                             <i class="fas fa-lock fa-fw me-3"></i>Đổi mật khẩu
                         </a>
                     </li>
@@ -60,9 +60,8 @@
                     </div>
                 @endif
 
-                <form method="POST" action="{{ url('/profile') }}">
+                <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
                     @csrf
-                    @method('PUT')
 
                     <div class="row mb-3">
                         <div class="col-md-6">
@@ -88,7 +87,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="birthday" class="form-label">Ngày sinh</label>
-                            <input type="date" class="form-control @error('birthday') is-invalid @enderror" id="birthday" name="birthday" value="{{ old('birthday', Auth::user()->birthday) }}">
+                            <input type="date" class="form-control @error('birthday') is-invalid @enderror" id="birthday" name="birthday" value="{{ old('birthday', Auth::user()->date_of_birth) }}">
                             @error('birthday')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -135,11 +134,11 @@
                         </div>
                     </div>
                     <div class="mt-3">
-                        <a href="{{ url('/addresses') }}" class="btn btn-outline-primary">Quản lý địa chỉ</a>
+                        <a href="" class="btn btn-outline-primary">Quản lý địa chỉ</a>
                     </div>
                 @else
                     <p>Bạn chưa có địa chỉ mặc định.</p>
-                    <a href="{{ url('/addresses/create') }}" class="btn btn-primary">Thêm địa chỉ mới</a>
+                    <a href="" class="btn btn-primary">Thêm địa chỉ mới</a>
                 @endif
             </div>
         </div>
@@ -155,7 +154,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{{ url('/profile/avatar') }}" enctype="multipart/form-data">
+                <form method="" action="" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
                         <label for="avatar" class="form-label">Chọn ảnh đại diện mới</label>

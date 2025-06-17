@@ -8,12 +8,21 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\Category;
 
 class CartController extends Controller
 {
     public function index()
     {
-        return view('cart.index');
+        $cart = Cart::with(['cartItems.product.category'])
+                    ->where('user_id', auth()->id())
+                    ->where('is_active', 1)
+                    ->first();
+
+        $suggestedProducts = Product::inRandomOrder()->limit(3)->get(); // Tùy chọn
+        $featuredCategories = Category::limit(3)->get(); // Tùy chọn
+
+        return view('cart.index', compact('cart', 'suggestedProducts', 'featuredCategories'));
     }
 
 
@@ -49,15 +58,26 @@ class CartController extends Controller
     }
 
 
-    // /**
-    //  * Remove an item from the cart.
-    //  *
-    //  * @param  int  $itemId
-    //  * @return \Illuminate\Http\RedirectResponse
-    //  */
-    // public function remove($itemId)
-    // {
-    //     // Logic to remove item from cart
-    //     return redirect()->route('cart.index')->with('success', 'Item removed from cart.');
-    // }
+    public function remove($id)
+    {
+        $cartItem = \App\Models\CartItem::find($id);
+
+        if (!$cartItem || $cartItem->cart->user_id !== auth()->id()) {
+            return response()->json(['success' => false, 'message' => 'Không tìm thấy sản phẩm trong giỏ hàng']);
+        }
+
+        $cart = $cartItem->cart;
+
+        // Xoá sản phẩm khỏi cart_items
+        $cartItem->delete();
+
+        // Kiểm tra nếu giỏ hàng đã trống, có thể xử lý tuỳ ý
+        $isCartEmpty = $cart->cartItems()->count() === 0;
+
+        return response()->json([
+            'success' => true,
+            'cartEmpty' => $isCartEmpty
+        ]);
+    }
+
 }
