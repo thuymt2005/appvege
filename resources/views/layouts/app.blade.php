@@ -35,14 +35,14 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- Danh mục sẽ được render động từ database -->
-                                <li><a class="dropdown-item" href="{{ url('/products?category=rau') }}">Rau xanh</a></li>
-                                <li><a class="dropdown-item" href="{{ url('/products?category=cu') }}">Củ</a></li>
-                                <li><a class="dropdown-item" href="{{ url('/products?category=qua') }}">Quả</a></li>
+                                <li><a class="dropdown-item" href="">Rau xanh</a></li>
+                                <li><a class="dropdown-item" href="">Củ</a></li>
+                                <li><a class="dropdown-item" href="">Quả</a></li>
                             </ul>
                         </li>
                     </ul>
 
-                    <form class="d-flex mx-3" action="{{ url('/search') }}" method="GET">
+                    <form class="d-flex mx-3" action="" method="GET">
                         <input class="form-control me-2" type="search" name="query" placeholder="Tìm kiếm sản phẩm..." aria-label="Search">
                         <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
                     </form>

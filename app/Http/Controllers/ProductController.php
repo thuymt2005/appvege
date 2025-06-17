@@ -10,10 +10,28 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('category')->paginate(12);
+        $products = Product::with('category')->get();
         $categories = Category::all();
 
-        return view('products.index', compact('products', 'categories'));
+        $allProducts = $products->map(function($product) {
+            return [
+                'id' => $product->id,
+                'name' => $product->name,
+                'description' => $product->description,
+                'price' => $product->price,
+                'unit' => $product->unit,
+                'stock_quantity' => $product->stock_quantity,
+                'category' => [
+                    'name' => $product->category->name ?? 'Không rõ',
+                    'slug' => $product->category->slug ?? 'unknown',
+                ],
+                'image_url' => asset($product->image_url ?? 'images/default.jpg'),
+                'views' => $product->views ?? 0,
+                'created_at' => $product->created_at->format('Y-m-d'),
+            ];
+        });
+
+        return view('products.index', compact('products', 'categories', 'allProducts'));
     }
 
     public function show($id)
