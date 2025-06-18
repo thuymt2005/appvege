@@ -15,7 +15,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo" height="40">
+                    <img src="{{ asset('images/logo.webp') }}" alt="Logo" height="40">
                     Rau Củ Quả Sạch
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">

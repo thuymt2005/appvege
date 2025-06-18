@@ -7,7 +7,7 @@
     <div class="col-md-3">
         <div class="card mb-4">
             <div class="card-body text-center">
-                <img src="{{ asset('images/avatars/default.jpg') }}" alt="Avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                <img src="{{ asset('images/avatars/default_avt.jpg') }}" alt="Avatar" class="rounded-circle img-fluid" style="width: 150px;">
                 <h5 class="my-3">{{ Auth::user()->name }}</h5>
                 <p class="text-muted mb-1">Khách hàng</p>
                 <p class="text-muted mb-4">{{ Auth::user()->email }}</p>

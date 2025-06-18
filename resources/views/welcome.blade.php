@@ -12,7 +12,7 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="{{ asset('images/banners/banner1.jpg') }}" class="d-block w-100" alt="Rau củ quả tươi ngon">
+                <img src="{{ asset('images/banners/banner1.png') }}" class="d-block w-100" alt="Rau củ quả tươi ngon">
                 <div class="carousel-caption">
                     <h2>Rau củ quả tươi ngon mỗi ngày</h2>
                     <p>Cung cấp các loại rau củ quả sạch, an toàn và chất lượng cao</p>
@@ -52,7 +52,7 @@
     <div class="row">
         <div class="col-md-4 mb-4">
             <div class="card category-card">
-                <img src="{{ asset('images/categories/vegetables.jpg') }}" class="card-img-top" alt="Rau xanh">
+                <img src="{{ asset('images/rau-sach.jpg') }}" class="card-img-top" alt="Rau xanh">
                 <div class="card-body text-center">
                     <h5 class="card-title">Rau xanh</h5>
                     <p class="card-text">Các loại rau xanh tươi ngon, giàu dinh dưỡng</p>
@@ -62,7 +62,7 @@
         </div>
         <div class="col-md-4 mb-4">
             <div class="card category-card">
-                <img src="{{ asset('images/categories/roots.jpg') }}" class="card-img-top" alt="Củ">
+                <img src="{{ asset('images/cu-cac-loai.jpg') }}" class="card-img-top" alt="Củ">
                 <div class="card-body text-center">
                     <h5 class="card-title">Củ các loại</h5>
                     <p class="card-text">Các loại củ tươi ngon, đảm bảo chất lượng</p>
@@ -72,7 +72,7 @@
         </div>
         <div class="col-md-4 mb-4">
             <div class="card category-card">
-                <img src="{{ asset('images/categories/fruits.jpg') }}" class="card-img-top" alt="Quả">
+                <img src="{{ asset('images/qua-cac-loai.jpg') }}" class="card-img-top" alt="Quả">
                 <div class="card-body text-center">
                     <h5 class="card-title">Trái cây</h5>
                     <p class="card-text">Các loại trái cây tươi ngon, nhiều vitamin</p>
@@ -124,7 +124,7 @@
             <div class="card h-100">
                 <div class="card-body">
                     <div class="d-flex mb-3">
-                        <img src="{{ asset('images/avatars/avatar1.jpg') }}" class="rounded-circle me-3" width="50" height="50" alt="Avatar">
+                        <img src="{{ asset('images/avatars/avt1.png') }}" class="rounded-circle me-3" width="50" height="50" alt="Avatar">
                         <div>
                             <h5 class="mb-0">Nguyễn Văn A</h5>
                             <div class="text-warning">
@@ -144,7 +144,7 @@
             <div class="card h-100">
                 <div class="card-body">
                     <div class="d-flex mb-3">
-                        <img src="{{ asset('images/avatars/avatar2.jpg') }}" class="rounded-circle me-3" width="50" height="50" alt="Avatar">
+                        <img src="{{ asset('images/avatars/avt2.webp') }}" class="rounded-circle me-3" width="50" height="50" alt="Avatar">
                         <div>
                             <h5 class="mb-0">Trần Thị B</h5>
                             <div class="text-warning">
@@ -164,7 +164,7 @@
             <div class="card h-100">
                 <div class="card-body">
                     <div class="d-flex mb-3">
-                        <img src="{{ asset('images/avatars/avatar3.jpg') }}" class="rounded-circle me-3" width="50" height="50" alt="Avatar">
+                        <img src="{{ asset('images/avatars/avt3.webp') }}" class="rounded-circle me-3" width="50" height="50" alt="Avatar">
                         <div>
                             <h5 class="mb-0">Lê Văn C</h5>
                             <div class="text-warning">

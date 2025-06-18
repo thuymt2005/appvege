@@ -137,7 +137,7 @@
             <div class="card">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img src="{{ asset('images/banners/offer1.jpg') }}" class="img-fluid rounded-start h-100" alt="Ưu đãi">
+                        <img src="{{ asset('images/banners/dis15%.jpg') }}" class="img-fluid rounded-start h-100" alt="Ưu đãi">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
@@ -154,7 +154,7 @@
             <div class="card">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img src="{{ asset('images/banners/offer2.jpg') }}" class="img-fluid rounded-start h-100" alt="Ưu đãi">
+                        <img src="{{ asset('images/banners/freeship.png') }}" class="img-fluid rounded-start h-100" alt="Ưu đãi">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
