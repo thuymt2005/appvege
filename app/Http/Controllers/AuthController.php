@@ -27,7 +27,7 @@ class AuthController extends Controller
             $account = Auth::user();
 
             if ($account->isAdmin()) {
-                return redirect()->route('admin.index');
+                return redirect()->route('admin.dashboard');
             }
 
             if ($account->isUser()) {

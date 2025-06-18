@@ -84,20 +84,14 @@ vegetable-shop/
 │   └── views/                          # Views
 │       ├── admin/                      # Views cho admin
 │       │   ├── categories/
-│       │   │   ├── create.blade.php
-│       │   │   ├── edit.blade.php
 │       │   │   └── index.blade.php
 │       │   ├── dashboard.blade.php
 │       │   ├── orders/
 │       │   │   ├── index.blade.php
 │       │   │   └── show.blade.php
 │       │   ├── products/
-│       │   │   ├── create.blade.php
-│       │   │   ├── edit.blade.php
 │       │   │   └── index.blade.php
 │       │   └── users/
-│       │       ├── create.blade.php
-│       │       ├── edit.blade.php
 │       │       └── index.blade.php
 │       │
 │       ├── auth/                       # Views xác thực

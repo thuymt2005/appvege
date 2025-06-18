@@ -15,7 +15,7 @@ class AuthMiddleware
 
             // Điều hướng theo role
             if ($user->isAdmin()) {
-                return redirect()->route('admin.index');
+                return redirect()->route('admin.dashboard');
             }
 
             if ($user->isUser()) {

@@ -21,7 +21,7 @@
                     </div>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link text-white {{ request()->is('admin/dashboard') ? 'active' : '' }}" href="{{ url('/admin/dashboard') }}">
+                            <a class="nav-link text-white {{ request()->is('admin') ? 'active' : '' }}" href="{{ url('/admin') }}">
                                 <i class="fas fa-tachometer-alt me-2"></i> Bảng điều khiển
                             </a>
                         </li>

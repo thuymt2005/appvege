@@ -5,10 +5,15 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\Authcontroller;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrdersController;
+
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
 
 use App\Http\Middleware\LoginMiddleware;
 use App\Http\Middleware\AdminMiddleware;
@@ -33,9 +38,14 @@ Route::middleware([LoginMiddleware::class])->group(function () {
     Route::post('/logout', [Authcontroller::class, 'logout'])->name('logout');
 });
 
-Route::middleware([LoginMiddleware::class, AdminMiddleware::class])->group(function () {
-    Route::resource('admin', AdminController::class);
+Route::middleware([LoginMiddleware::class, AdminMiddleware::class])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::resource('users', AdminUserController::class);
+    Route::resource('orders', AdminOrderController::class);
+    Route::resource('categories', AdminCategoryController::class);
+    Route::resource('products', AdminProductController::class);
 });
+
 
 Route::middleware([LoginMiddleware::class, UserMiddleware::class])->group(function () {
     Route::get('/home', [UserController::class, 'home'])->name('home');
