@@ -31,22 +31,32 @@ class CartController extends Controller
         $product = Product::findOrFail($id);
         $quantity = $request->input('quantity', 1);
 
+        // Kiểm tra tồn kho đủ không
+        if ($product->stock_quantity < $quantity) {
+            return redirect()->back()->with('error', 'Sản phẩm không đủ số lượng tồn kho');
+        }
+
         // Lấy cart hiện tại của user
         $cart = Cart::firstOrCreate([
             'user_id' => Auth::id(),
         ]);
 
-        // Kiểm tra xem sản phẩm đã tồn tại trong cart chưa
+        // Kiểm tra sản phẩm đã có trong giỏ chưa
         $item = CartItem::where('cart_id', $cart->id)
                         ->where('product_id', $id)
                         ->first();
 
         if ($item) {
-            // Nếu có, tăng số lượng
-            $item->quantity += $quantity;
+            $newQuantity = $item->quantity + $quantity;
+
+            // Kiểm tra lại tồn kho so với tổng số lượng mới
+            if ($product->stock_quantity < ($newQuantity - $item->quantity)) {
+                return redirect()->back()->with('error', 'Sản phẩm không đủ số lượng tồn kho');
+            }
+
+            $item->quantity = $newQuantity;
             $item->save();
         } else {
-            // Nếu chưa có, tạo mới
             CartItem::create([
                 'cart_id'    => $cart->id,
                 'product_id' => $id,
@@ -54,8 +64,13 @@ class CartController extends Controller
             ]);
         }
 
+        // Trừ tồn kho
+        $product->stock_quantity -= $quantity;
+        $product->save();
+
         return redirect()->back()->with('success', 'Đã thêm sản phẩm vào giỏ hàng');
     }
+
 
 
     public function remove($id)
@@ -68,10 +83,17 @@ class CartController extends Controller
 
         $cart = $cartItem->cart;
 
+        // Lấy sản phẩm liên quan
+        $product = \App\Models\Product::find($cartItem->product_id);
+        if ($product) {
+            $product->stock_quantity += $cartItem->quantity;
+            $product->save();
+        }
+
         // Xoá sản phẩm khỏi cart_items
         $cartItem->delete();
 
-        // Kiểm tra nếu giỏ hàng đã trống, có thể xử lý tuỳ ý
+        // Kiểm tra nếu giỏ hàng đã trống
         $isCartEmpty = $cart->cartItems()->count() === 0;
 
         return response()->json([
@@ -79,5 +101,6 @@ class CartController extends Controller
             'cartEmpty' => $isCartEmpty
         ]);
     }
+
 
 }

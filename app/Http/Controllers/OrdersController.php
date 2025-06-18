@@ -28,24 +28,25 @@ class OrdersController extends Controller
         $user = auth()->user();
 
         // Lấy giỏ hàng đang hoạt động của user
-        $cart = Cart::where('user_id', $user->id)->where('is_active', true)->first();
+        $cart = Cart::where('user_id', $user->id)
+                    ->where('is_active', true)
+                    ->with('cartItems')
+                    ->first();
 
         if (!$cart || $cart->cartItems->isEmpty()) {
             return redirect()->back()->with('error', 'Giỏ hàng trống hoặc không tồn tại.');
         }
 
-        // Xử lý lưu đơn hàng (tùy chọn – có thể bạn sẽ cần lưu vào bảng orders ở đây)
+        // TODO: Xử lý lưu đơn hàng vào bảng orders (nếu cần)
 
-        // Đánh dấu giỏ hàng này là đã thanh toán
-        $cart->is_active = false;
-        $cart->save();
+        // Xóa sạch các item trong giỏ
+        $cart->cartItems()->delete();
 
-        // Tạo giỏ hàng mới cho user nếu cần (nếu bạn muốn mỗi người chỉ có 1 giỏ hàng đang hoạt động)
-        Cart::create([
-            'user_id' => $user->id,
-            'is_active' => true,
-        ]);
+        // (Tùy chọn) Đánh dấu giỏ hàng là đã thanh toán, nếu bạn không muốn dùng lại giỏ
+        // $cart->is_active = false;
+        // $cart->save();
 
-        return redirect()->route('cart')->with('success', 'Đơn hàng đã được thanh toán.');
+        return redirect()->route('cart')->with('success', 'Đơn hàng đã được thanh toán và giỏ hàng đã được làm trống.');
     }
+
 }
