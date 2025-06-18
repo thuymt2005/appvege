@@ -45,10 +45,11 @@ class Order extends Model
     /**
      * Get the items for the order.
      */
-    public function items()
+    public function orderItems()
     {
         return $this->hasMany(OrderItem::class);
     }
+
 
     /**
      * Check if the order is pending.

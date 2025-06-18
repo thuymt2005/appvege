@@ -38,7 +38,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($order->orderDetails as $detail)
+                                        @foreach($order->orderItems as $detail)
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
@@ -119,7 +119,7 @@
                 </div>
 
                 <!-- Sidebar thông tin tổng quan -->
-                <div class="col-md-4">
+                {{-- <div class="col-md-4">
                     <!-- Trạng thái đơn hàng -->
                     <div class="card mb-4">
                         <div class="card-header">
@@ -241,7 +241,7 @@
                         </div>
                     </div>
                     @endif
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
