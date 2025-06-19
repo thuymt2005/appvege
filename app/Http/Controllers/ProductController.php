@@ -25,7 +25,7 @@ class ProductController extends Controller
                     'name' => $product->category->name ?? 'Không rõ',
                     'slug' => $product->category->slug ?? 'unknown',
                 ],
-                'image_url' => asset($product->image_url ?? 'images/default.jpg'),
+                'image_url' => $product->image_url ? asset('storage/' . $product->image_url) : null,
                 'views' => $product->views ?? 0,
                 'created_at' => $product->created_at->format('Y-m-d'),
             ];

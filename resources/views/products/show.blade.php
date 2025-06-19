@@ -20,7 +20,7 @@
             <div class="product-images">
                 <!-- Main Image -->
                 <div class="main-image mb-3">
-                    <img src="{{ $product->image_url ? $product->image_url : asset('images/products/default.jpg') }}"
+                    <img src="{{ "/storage/$product->image_url" ? "/storage/$product->image_url" : asset('images/products/default.jpg') }}"
                          alt="{{ $product->name }}"
                          class="img-fluid rounded shadow-sm w-100"
                          style="height: 400px; object-fit: cover;"
@@ -30,11 +30,11 @@
                 <!-- Thumbnail Images (sample - can be extended for multiple images) -->
                 <div class="row g-2">
                     <div class="col-3">
-                        <img src="{{ $product->image_url ? $product->image_url : asset('images/products/default.jpg') }}"
+                        {{-- <img src="{{ $product->image_url ? $product->image_url : asset('images/products/default.jpg') }}"
                              alt="{{ $product->name }}"
                              class="img-fluid rounded shadow-sm w-100 thumbnail-img border border-2 border-success"
                              style="height: 80px; object-fit: cover; cursor: pointer;"
-                             onclick="changeMainImage(this.src)">
+                             onclick="changeMainImage(this.src)"> --}}
                     </div>
                     <!-- Additional thumbnails can be added here -->
                 </div>
