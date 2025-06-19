@@ -21,7 +21,7 @@ use App\Http\Middleware\UserMiddleware;
 use App\Http\Middleware\AuthMiddleware;
 
 Route::get('/', function () {
-    return Auth::check() ? redirect()->route('home') : view('welcome');
+    return view('welcome');
 });
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');

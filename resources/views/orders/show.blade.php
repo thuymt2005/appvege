@@ -43,8 +43,8 @@
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <div class="me-3">
-                                                        @if($detail->product->image)
-                                                            <img src="{{ asset('storage/products/' . $detail->product->image) }}"
+                                                        @if($detail->product->image_url)
+                                                            <img src="{{ asset('storage/' . $detail->product->image_url) }}"
                                                                  alt="{{ $detail->product->name }}"
                                                                  class="rounded"
                                                                  style="width: 60px; height: 60px; object-fit: cover;">

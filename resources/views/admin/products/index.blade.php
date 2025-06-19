@@ -212,14 +212,8 @@
                             <td>{{ $product->created_at->format('d/m/Y') }}</td>
                             <td>
                                 <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="viewProduct({{ $product->id }})" title="Xem chi tiết">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
                                     <button type="button" class="btn btn-sm btn-outline-warning" onclick="editProduct({{ $product->id }})" title="Chỉnh sửa">
                                         <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="deleteProduct({{ $product->id }})" title="Xóa">
-                                        <i class="fas fa-trash"></i>
                                     </button>
                                 </div>
                             </td>
@@ -589,6 +583,37 @@
             console.log('Deleting products:', ids);
         }
     }
+
+    function deleteSelected() {
+        const checkedBoxes = document.querySelectorAll('.product-checkbox:checked');
+        if (checkedBoxes.length === 0) return;
+
+        if (confirm(`Bạn có chắc chắn muốn xóa ${checkedBoxes.length} sản phẩm đã chọn?`)) {
+            const ids = Array.from(checkedBoxes).map(cb => cb.value);
+            const idsParam = ids.join(',');
+
+            fetch(`/admin/products/${idsParam}`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Xóa thất bại.');
+                return response.json();
+            })
+            .then(data => {
+                alert(data.message);
+                location.reload();
+            })
+            .catch(error => {
+                console.error(error);
+                alert('Có lỗi xảy ra khi xóa.');
+            });
+        }
+}
+
+
 
     // Export products
     function exportProducts() {

@@ -73,4 +73,18 @@ class ProductController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Cập nhật sản phẩm thành công!']);
     }
+
+    public function destroy($ids)
+    {
+        $idArray = explode(',', $ids);
+
+        if (empty($idArray)) {
+            return response()->json(['message' => 'Không có sản phẩm nào để xóa.'], 400);
+        }
+
+        Product::whereIn('id', $idArray)->delete();
+
+        return response()->json(['message' => 'Xóa sản phẩm thành công.']);
+    }
+
 }

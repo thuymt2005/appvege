@@ -44,7 +44,7 @@
                                 <div class="row align-items-center">
                                     <!-- Hình ảnh sản phẩm -->
                                     <div class="col-md-2 col-sm-3">
-                                        <img src="{{ asset('storage/products/' . ($cartItem->product->image ?? 'default.jpg')) }}"
+                                        <img src="{{ asset('storage/' . ($cartItem->product->image_url ?? 'default.jpg')) }}"
                                              alt="{{ $cartItem->product->name }}"
                                              class="img-fluid rounded cart-product-image"
                                              style="width: 80px; height: 80px; object-fit: cover;">
@@ -187,7 +187,7 @@
                         @if(isset($suggestedProducts) && $suggestedProducts->count() > 0)
                             @foreach($suggestedProducts as $product)
                                 <div class="d-flex align-items-center mb-2 p-2 border rounded">
-                                    <img src="{{ asset('storage/products/' . ($product->image ?? 'default.jpg')) }}"
+                                    <img src="{{ asset('storage/' . ($product->image_url ?? 'default.jpg')) }}"
                                          alt="{{ $product->name }}"
                                          class="me-2 rounded"
                                          style="width: 40px; height: 40px; object-fit: cover;">

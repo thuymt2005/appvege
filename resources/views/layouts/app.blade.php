@@ -24,7 +24,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/') }}">Trang chủ</a>
+                            <a class="nav-link" href="{{ url('/home') }}">Trang chủ</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/products') }}">Sản phẩm</a>
