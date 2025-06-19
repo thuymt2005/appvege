@@ -42,6 +42,7 @@ Route::middleware([LoginMiddleware::class, AdminMiddleware::class])->prefix('adm
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::resource('users', AdminUserController::class);
     Route::resource('orders', AdminOrderController::class);
+    Route::get('/categories/list', [AdminCategoryController::class, 'list']);
     Route::resource('categories', AdminCategoryController::class);
     Route::resource('products', AdminProductController::class);
 });
