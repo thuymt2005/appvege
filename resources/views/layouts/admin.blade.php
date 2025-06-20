@@ -7,7 +7,6 @@
     <title>@yield('title', 'Quản trị - Cửa hàng rau củ quả')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @yield('styles')
 </head>
@@ -29,21 +28,6 @@
                         <li class="nav-item">
                             <a class="nav-link text-white {{ request()->is('admin/products*') ? 'active' : '' }}" href="{{ url('/admin/products') }}">
                                 <i class="fas fa-carrot me-2"></i> Quản lý sản phẩm
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white {{ request()->is('admin/categories*') ? 'active' : '' }}" href="{{ url('/admin/categories') }}">
-                                <i class="fas fa-list me-2"></i> Quản lý danh mục
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white {{ request()->is('admin/orders*') ? 'active' : '' }}" href="{{ url('/admin/orders') }}">
-                                <i class="fas fa-shopping-bag me-2"></i> Quản lý đơn hàng
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white {{ request()->is('admin/users*') ? 'active' : '' }}" href="{{ url('/admin/users') }}">
-                                <i class="fas fa-users me-2"></i> Quản lý người dùng
                             </a>
                         </li>
                         <li class="nav-item mt-5">
@@ -90,7 +74,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="{{ asset('js/admin.js') }}"></script>
     @yield('scripts')
+    @stack('scripts')
 </body>
 </html>
