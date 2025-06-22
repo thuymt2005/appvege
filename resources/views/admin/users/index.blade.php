@@ -18,9 +18,9 @@
                     </nav>
                 </div>
                 <div>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                    <a href="{{ route('admin.users.create') }}" class="btn btn-primary">
                         <i class="fas fa-plus me-2"></i>Thêm người dùng
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -54,7 +54,7 @@
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 Hoạt động
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $activeUsers ?? 0 }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalUsers ?? 0 }}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-user-check fa-2x text-gray-300"></i>
@@ -90,7 +90,7 @@
                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                                 Mới tháng này
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $newUsersThisMonth ?? 0 }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalUsers ?? 0 }}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-calendar-plus fa-2x text-gray-300"></i>
@@ -101,7 +101,7 @@
         </div>
     </div>
 
-    <!-- Search and Filter -->
+    {{-- <!-- Search and Filter -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Tìm kiếm và lọc</h6>
@@ -144,7 +144,7 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Users Table -->
     <div class="card shadow mb-4">
@@ -166,9 +166,6 @@
                 <table class="table table-bordered table-hover" id="usersTable">
                     <thead class="table-light">
                         <tr>
-                            <th width="50">
-                                <input type="checkbox" class="form-check-input" id="selectAll">
-                            </th>
                             <th>ID</th>
                             <th>Ảnh đại diện</th>
                             <th>Họ tên</th>
@@ -183,9 +180,6 @@
                     <tbody>
                         @forelse($users ?? [] as $user)
                         <tr>
-                            <td>
-                                <input type="checkbox" class="form-check-input user-checkbox" value="{{ $user->id ?? '' }}">
-                            </td>
                             <td>{{ $user->id ?? '' }}</td>
                             <td>
                                 @if(isset($user) && $user->avatar)
@@ -216,7 +210,7 @@
                                 @endif
                             </td>
                             <td>
-                                @if(isset($user) && $user->status == 'active')
+                                @if(isset($user) && $user->status != 'active')
                                     <span class="badge bg-success">Hoạt động</span>
                                 @else
                                     <span class="badge bg-warning">Tạm khóa</span>
@@ -225,16 +219,6 @@
                             <td>{{ isset($user) && $user->created_at ? $user->created_at->format('d/m/Y') : 'N/A' }}</td>
                             <td>
                                 <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-sm btn-outline-primary"
-                                            data-bs-toggle="modal" data-bs-target="#viewUserModal"
-                                            onclick="viewUser({{ $user->id ?? 0 }})">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-outline-warning"
-                                            data-bs-toggle="modal" data-bs-target="#editUserModal"
-                                            onclick="editUser({{ $user->id ?? 0 }})">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
                                     <button type="button" class="btn btn-sm btn-outline-danger"
                                             onclick="confirmDelete({{ $user->id ?? 0 }})">
                                         <i class="fas fa-trash"></i>
