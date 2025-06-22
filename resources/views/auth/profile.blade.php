@@ -34,11 +34,6 @@
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                         <a href="" class="text-decoration-none text-dark w-100">
-                            <i class="fas fa-map-marker-alt fa-fw me-3"></i>Địa chỉ giao hàng
-                        </a>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                        <a href="" class="text-decoration-none text-dark w-100">
                             <i class="fas fa-lock fa-fw me-3"></i>Đổi mật khẩu
                         </a>
                     </li>
@@ -120,22 +115,22 @@
                 <h5 class="mb-0">Địa chỉ mặc định</h5>
             </div>
             <div class="card-body">
-                @if(isset($defaultAddress))
+                @if(isset($address))
                     <div class="row">
                         <div class="col-md-6">
-                            <p><strong>Họ tên:</strong> {{ $defaultAddress->name }}</p>
-                            <p><strong>Số điện thoại:</strong> {{ $defaultAddress->phone }}</p>
-                            <p><strong>Địa chỉ:</strong> {{ $defaultAddress->address }}</p>
+                            <p><strong>Họ tên:</strong> {{ $user->name }}</p>
+                            <p><strong>Số điện thoại:</strong> {{ $user->phone }}</p>
+                            <p><strong>Địa chỉ:</strong> {{ $user->address }}</p>
                         </div>
                         <div class="col-md-6">
-                            <p><strong>Phường/Xã:</strong> {{ $defaultAddress->ward }}</p>
-                            <p><strong>Quận/Huyện:</strong> {{ $defaultAddress->district }}</p>
-                            <p><strong>Tỉnh/Thành phố:</strong> {{ $defaultAddress->province }}</p>
+                            {{-- <p><strong>Phường/Xã:</strong> {{ $address->ward }}</p>
+                            <p><strong>Quận/Huyện:</strong> {{ $address->district }}</p>
+                            <p><strong>Tỉnh/Thành phố:</strong> {{ $address->province }}</p> --}}
                         </div>
                     </div>
-                    <div class="mt-3">
+                    {{-- <div class="mt-3">
                         <a href="" class="btn btn-outline-primary">Quản lý địa chỉ</a>
-                    </div>
+                    </div> --}}
                 @else
                     <p>Bạn chưa có địa chỉ mặc định.</p>
                     <a href="" class="btn btn-primary">Thêm địa chỉ mới</a>

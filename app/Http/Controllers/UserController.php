@@ -15,7 +15,9 @@ class UserController extends Controller
     public function profile()
     {
         // Hiển thị trang thông tin cá nhân của người dùng
-        return view('auth.profile');
+        $user = Auth::user();
+        $address = $user->address; // Giả sử bạn có mối quan hệ
+        return view('auth.profile', compact('user', 'address'));
     }
     public function search()
     {
