@@ -30,6 +30,21 @@
                                 <i class="fas fa-carrot me-2"></i> Quản lý sản phẩm
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="">
+                                <i class="fas fa-list me-2"></i> Quản lý danh mục
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white {{ request()->is('admin/orders*') ? 'active' : '' }}" href="{{ url('/admin/orders') }}">
+                                <i class="fas fa-shopping-bag me-2"></i> Quản lý đơn hàng
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white {{ request()->is('admin/users*') ? 'active' : '' }}" href="{{ url('/admin/users') }}">
+                                <i class="fas fa-users me-2"></i> Quản lý người dùng
+                            </a>
+                        </li>
                         <li class="nav-item mt-5">
                             <a class="nav-link text-white" href="{{ url('/') }}" target="_blank">
                                 <i class="fas fa-external-link-alt me-2"></i> Xem trang web

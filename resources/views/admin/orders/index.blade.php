@@ -94,40 +94,40 @@
         </div>
     </div>
 
-    <!-- Filters and Search -->
+    {{-- <!-- Filters and Search -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Bộ lọc và tìm kiếm</h6>
         </div>
         <div class="card-body">
-            <form method="GET" action="{{ route('admin.orders.index') }}">
+            <form method="GET" action="">
                 <div class="row">
                     <div class="col-md-3 mb-3">
                         <label for="search" class="form-label">Tìm kiếm</label>
                         <input type="text" class="form-control" id="search" name="search"
                                placeholder="Mã đơn hàng, tên khách hàng..."
-                               value="{{ request('search') }}">
+                               value="">
                     </div>
                     <div class="col-md-2 mb-3">
                         <label for="status" class="form-label">Trạng thái</label>
                         <select class="form-select" id="status" name="status">
                             <option value="">Tất cả</option>
-                            <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Chờ xử lý</option>
-                            <option value="confirmed" {{ request('status') == 'confirmed' ? 'selected' : '' }}>Đã xác nhận</option>
-                            <option value="shipping" {{ request('status') == 'shipping' ? 'selected' : '' }}>Đang giao</option>
-                            <option value="delivered" {{ request('status') == 'delivered' ? 'selected' : '' }}>Đã giao</option>
-                            <option value="cancelled" {{ request('status') == 'cancelled' ? 'selected' : '' }}>Đã hủy</option>
+                            <option value="pending" >Chờ xử lý</option>
+                            <option value="confirmed">Đã xác nhận</option>
+                            <option value="shipping">Đang giao</option>
+                            <option value="delivered">Đã giao</option>
+                            <option value="cancelled">Đã hủy</option>
                         </select>
                     </div>
                     <div class="col-md-2 mb-3">
                         <label for="date_from" class="form-label">Từ ngày</label>
                         <input type="date" class="form-control" id="date_from" name="date_from"
-                               value="{{ request('date_from') }}">
+                               value="">
                     </div>
                     <div class="col-md-2 mb-3">
                         <label for="date_to" class="form-label">Đến ngày</label>
                         <input type="date" class="form-control" id="date_to" name="date_to"
-                               value="{{ request('date_to') }}">
+                               value="">
                     </div>
                     <div class="col-md-3 mb-3 d-flex align-items-end">
                         <button type="submit" class="btn btn-primary me-2">
@@ -140,7 +140,7 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Orders Table -->
     <div class="card shadow mb-4">
@@ -151,10 +151,10 @@
                     <i class="fas fa-download"></i> Xuất dữ liệu
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{{ route('admin.orders.export', ['format' => 'excel']) }}">
+                    <li><a class="dropdown-item" href="">
                         <i class="fas fa-file-excel"></i> Excel
                     </a></li>
-                    <li><a class="dropdown-item" href="{{ route('admin.orders.export', ['format' => 'pdf']) }}">
+                    <li><a class="dropdown-item" href="">
                         <i class="fas fa-file-pdf"></i> PDF
                     </a></li>
                 </ul>
@@ -174,7 +174,7 @@
                                 <th width="12%">Trạng thái</th>
                                 <th width="15%">Phương thức TT</th>
                                 <th width="13%">Trạng thái TT</th>
-                                <th width="10%">Thao tác</th>
+                                {{-- <th width="10%">Thao tác</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -182,11 +182,11 @@
                             <tr>
                                 <td>{{ $orders->firstItem() + $index }}</td>
                                 <td>
-                                    <strong class="text-primary">#{{ $order->order_code }}</strong>
+                                    <strong class="text-primary">#{{ $order->id }}</strong>
                                 </td>
                                 <td>
                                     <div>
-                                        <strong>{{ $order->customer_name }}</strong>
+                                        <strong>{{ $order->user->name }}</strong>
                                         <br>
                                         <small class="text-muted">{{ $order->customer_email }}</small>
                                     </div>
@@ -194,7 +194,7 @@
                                 <td>{{ $order->created_at->format('d/m/Y H:i') }}</td>
                                 <td>
                                     <strong class="text-success">
-                                        {{ number_format($order->total_amount, 0, ',', '.') }}đ
+                                        {{ number_format($order->total_price, 0, ',', '.') }}đ
                                     </strong>
                                 </td>
                                 <td>
@@ -208,7 +208,7 @@
                                         @case('shipping')
                                             <span class="badge bg-primary">Đang giao</span>
                                             @break
-                                        @case('delivered')
+                                        @case('completed')
                                             <span class="badge bg-success">Đã giao</span>
                                             @break
                                         @case('cancelled')
@@ -220,7 +220,7 @@
                                 </td>
                                 <td>
                                     @switch($order->payment_method)
-                                        @case('cod')
+                                        @case('COD')
                                             <span class="badge bg-secondary">COD</span>
                                             @break
                                         @case('bank_transfer')
@@ -245,7 +245,7 @@
                                         <span class="badge bg-danger">Chưa thanh toán</span>
                                     @endif
                                 </td>
-                                <td>
+                                {{-- <td>
                                     <div class="btn-group" role="group">
                                         <a href="{{ route('admin.orders.show', $order->id) }}"
                                            class="btn btn-info btn-sm" title="Xem chi tiết">
@@ -293,7 +293,7 @@
                                         </div>
                                         @endif
                                     </div>
-                                </td>
+                                </td> --}}
                             </tr>
                             @endforeach
                         </tbody>
